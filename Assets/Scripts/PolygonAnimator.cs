@@ -29,31 +29,15 @@ public class PolygonAnimator : MonoBehaviour
     private void Start()
     {
         baseRadius = polygon.Radius;
-
+        
         if (autoStartAnimation)
         {
-            //StartDefaultAnimations();
-            StartShakeAnimation();
+            StartDefaultAnimations();
         }
-    }
-
-    void Update()
-    {
-        // if(polygon.Angles < 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
-        // {
-        //     StartMorphAnimation(targetAngles: 10, duration: 8f);
-        //     Debug.Log("Morph to MaxAngles started");
-        // }
-        // else if(polygon.Angles >= 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
-        // {
-        //     StartMorphAnimation(targetAngles: 3, duration: 8f);
-        //     Debug.Log("Morph to MaxAngles in progress...");
-        // }
     }
 
     public void StartDefaultAnimations()
     {
-        StopAllAnimations();
         StartPulseAnimation();
         StartRotationAnimation();
     }
@@ -168,7 +152,7 @@ public class PolygonAnimator : MonoBehaviour
     // Изменение количества углов с Bounce-эффектом
     private IEnumerator MorphAnimation(int targetAngles = 3, float duration = 3f)
     {
-        // Почему то при включенной Pulse-анимации иногда не срабатывает Bounce анимация внутри Morph-а
+        // Почему-то при включенной Pulse-анимации иногда не срабатывает Bounce анимация внутри Morph-а
         // Однако с задержкой все работает корректно
 
         // Пока уберу, чтобы сохранялось корректное время выполнения анимации, но надо иметь в виду
