@@ -16,6 +16,7 @@ public class PolygonAnimator : MonoBehaviour
     private const string MORPH_ANIMATION_KEY = "morph";
     private const string BOUNCE_ANIMATION_KEY = "bounce";
     private const string CHANGE_RADIUS_ANIMATION_KEY = "changeRadius";
+    private const string SHAKE_ANIMATION_KEY = "shake";
     
     private Dictionary<string, Coroutine> animationCoroutines = new();
 
@@ -31,22 +32,23 @@ public class PolygonAnimator : MonoBehaviour
 
         if (autoStartAnimation)
         {
-            StartDefaultAnimations();
+            //StartDefaultAnimations();
+            StartShakeAnimation();
         }
     }
 
     void Update()
     {
-        if(polygon.Angles < 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
-        {
-            StartMorphAnimation(targetAngles: 10, duration: 8f);
-            Debug.Log("Morph to MaxAngles started");
-        }
-        else if(polygon.Angles >= 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
-        {
-            StartMorphAnimation(targetAngles: 3, duration: 8f);
-            Debug.Log("Morph to MaxAngles in progress...");
-        }
+        // if(polygon.Angles < 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
+        // {
+        //     StartMorphAnimation(targetAngles: 10, duration: 8f);
+        //     Debug.Log("Morph to MaxAngles started");
+        // }
+        // else if(polygon.Angles >= 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
+        // {
+        //     StartMorphAnimation(targetAngles: 3, duration: 8f);
+        //     Debug.Log("Morph to MaxAngles in progress...");
+        // }
     }
 
     public void StartDefaultAnimations()
@@ -91,6 +93,19 @@ public class PolygonAnimator : MonoBehaviour
             time += Time.deltaTime * speed;
             float pulse = Mathf.Sin(time) * pulseAmount;
             polygon.Radius = baseRadius * (1 + pulse);
+            yield return null;
+        }
+    }
+
+    private IEnumerator ShakeAnimation(float speed = 1f, float shakeOffset = 50f)
+    {
+        float time = 0f;
+        
+        while (true)
+        {
+            time += Time.deltaTime * speed;
+            float pulse = Mathf.Sin(time) * shakeOffset;
+            polygon.transform.rotation = Quaternion.Euler(0, 0, baseRadius * (1 + pulse));
             yield return null;
         }
     }
@@ -153,8 +168,10 @@ public class PolygonAnimator : MonoBehaviour
     // Изменение количества углов с Bounce-эффектом
     private IEnumerator MorphAnimation(int targetAngles = 3, float duration = 3f)
     {
-        // Почему то при включенной Pulse-анимации иногда не срабатывает Bounce анимация
+        // Почему то при включенной Pulse-анимации иногда не срабатывает Bounce анимация внутри Morph-а
         // Однако с задержкой все работает корректно
+
+        // Пока уберу, чтобы сохранялось корректное время выполнения анимации, но надо иметь в виду
         // yield return new WaitForSeconds(0.05f); // Небольшая задержка перед началом анимации
         int startAngles = polygon.Angles;
         float time = 0f;
@@ -169,9 +186,8 @@ public class PolygonAnimator : MonoBehaviour
             
             if (currentAngles != polygon.Angles)
             {
+                StartBounceAnimation();
                 polygon.Angles = currentAngles;
-                //StartBounceAnimation();
-                yield return BounceAnimation();
             }
             
             yield return null;
@@ -250,4 +266,14 @@ public class PolygonAnimator : MonoBehaviour
         StopAnimation(CHANGE_RADIUS_ANIMATION_KEY);
     }
 
+    public void StartShakeAnimation(float speed = 1f, float shakeOffset = 50f)
+    {
+        StopAnimation(SHAKE_ANIMATION_KEY);
+        Coroutine animationCoroutine = StartCoroutine(ShakeAnimation(speed, shakeOffset));
+        animationCoroutines.Add(SHAKE_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopShakeAnimation()
+    {
+        StopAnimation(SHAKE_ANIMATION_KEY);
+    }
 }
