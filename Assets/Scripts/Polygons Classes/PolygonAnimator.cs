@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class PolygonAnimator : MonoBehaviour 
 {
 
-    [Header("Animation Settings")]
     public Polygon polygon;
     [SerializeField] private bool autoStartAnimation = true;
     private float baseRadius = 1f;
@@ -19,7 +18,6 @@ public class PolygonAnimator : MonoBehaviour
     private const string SHAKE_ANIMATION_KEY = "shake";
     
     private Dictionary<string, Coroutine> animationCoroutines = new();
-
 
     private void Awake()
     {
@@ -94,17 +92,17 @@ public class PolygonAnimator : MonoBehaviour
         }
     }
 
-    private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
+    private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float duration = 0.25f, float speed = 1f)
     {
         float time = 0f;
         float startRadius = polygon.Radius;
         
-        while (time < bounceDuration)
+        while (time < duration)
         {
             time += Time.deltaTime * speed;
             
             // Нормализованное время от 0 до 1
-            float t = Mathf.Clamp01(time / bounceDuration);
+            float t = Mathf.Clamp01(time / duration);
             
             // Формула для bounce эффекта (затухающая синусоида)
             float bounce = Mathf.Sin(t * Mathf.PI * 3) * // 3 колебания
