@@ -8,14 +8,14 @@ public class PolygonAnimator : MonoBehaviour
 
     [Header("Animation Settings")]
     public Polygon polygon;
-    [SerializeField] private float animationSpeed = 1f;
-    [SerializeField] private float pulseAmount = 0.2f;
-    [SerializeField] private float rotationSpeed = 0f;
     [SerializeField] private bool autoStartAnimation = true;
-    [SerializeField] private float baseRadius = 1f;
+    private float baseRadius = 1f;
 
-    public const string PULSE_ANIMATION_KEY = "pulse";
-    public const string ROTATION_ANIMATION_KEY = "rotation";
+    private const string PULSE_ANIMATION_KEY = "pulse";
+    private const string ROTATION_ANIMATION_KEY = "rotation";
+    private const string MORPH_ANIMATION_KEY = "morph";
+    private const string BOUNCE_ANIMATION_KEY = "bounce";
+    private const string CHANGE_RADIUS_ANIMATION_KEY = "changeRadius";
     
     private Dictionary<string, Coroutine> animationCoroutines = new();
 
@@ -35,16 +35,25 @@ public class PolygonAnimator : MonoBehaviour
         }
     }
 
-    // ==================== БАЗОВЫЕ АНИМАЦИИ ====================
-    
+    void Update()
+    {
+        if(polygon.Angles < 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
+        {
+            StartMorphAnimation(targetAngles: 10, duration: 8f);
+            Debug.Log("Morph to MaxAngles started");
+        }
+        else if(polygon.Angles >= 10 && IsAnimationRunning(MORPH_ANIMATION_KEY) == false)
+        {
+            StartMorphAnimation(targetAngles: 3, duration: 8f);
+            Debug.Log("Morph to MaxAngles in progress...");
+        }
+    }
+
     public void StartDefaultAnimations()
     {
         StopAllAnimations();
-        StartAnimation(PULSE_ANIMATION_KEY);
-        if (rotationSpeed != 0f)
-        {
-            StartAnimation(ROTATION_ANIMATION_KEY);
-        }
+        StartPulseAnimation();
+        StartRotationAnimation();
     }
     
     public void StopAllAnimations()
@@ -66,60 +75,111 @@ public class PolygonAnimator : MonoBehaviour
         polygon.transform.rotation = Quaternion.identity;
     }
 
+    private bool IsAnimationRunning(string animationKey)
+    {
+        return animationCoroutines.ContainsKey(animationKey);
+    }
+
     // ==================== ОСНОВНЫЕ АНИМАЦИОННЫЕ КОРУТИНЫ ====================
     
-    private IEnumerator PulseAnimation()
+    private IEnumerator PulseAnimation(float speed = 1f, float pulseAmount = 0.2f)
     {
         float time = 0f;
         
         while (true)
         {
-            time += Time.deltaTime * animationSpeed;
+            time += Time.deltaTime * speed;
             float pulse = Mathf.Sin(time) * pulseAmount;
             polygon.Radius = baseRadius * (1 + pulse);
             yield return null;
         }
     }
 
-    private IEnumerator RotationAnimation()
+    private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
+    {
+        float time = 0f;
+        float startRadius = polygon.Radius;
+        
+        while (time < bounceDuration)
+        {
+            time += Time.deltaTime * speed;
+            
+            // Нормализованное время от 0 до 1
+            float t = Mathf.Clamp01(time / bounceDuration);
+            
+            // Формула для bounce эффекта (затухающая синусоида)
+            float bounce = Mathf.Sin(t * Mathf.PI * 3) * // 3 колебания
+                        Mathf.Pow(1 - t, 2) * // Затухание
+                        bounceHeight;
+            
+            polygon.Radius = startRadius * (1 + bounce);
+            yield return null;
+        }
+
+        StopBounceAnimation();
+    }
+
+    private IEnumerator ChangeRadiusAnimation(float targetRadius = 2f, float duration = 1f)
+    {
+        float time = 0f;
+        float startRadius = polygon.Radius;
+        
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            
+            // Плавное ускорение и замедление
+            float smoothT = Mathf.SmoothStep(0f, 1f, t);
+            polygon.Radius = Mathf.Lerp(startRadius, targetRadius, smoothT);
+            
+            yield return null;
+        }
+        
+        polygon.Radius = targetRadius;
+        
+        StopChangeRadiusAnimation();
+    }
+
+    private IEnumerator RotationAnimation(float speed = 30f)
     {
         while (true)
         {
-            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.forward, speed * Time.deltaTime);
             yield return null;
         }
     }
 
-    // ============================ ПУБЛИЧНОЕ API ДЛЯ АНИМАЦИЙ ================================
-
-    public void StartAnimation(string animationKey)
+    // Изменение количества углов с Bounce-эффектом
+    private IEnumerator MorphAnimation(int targetAngles = 3, float duration = 3f)
     {
-        if (animationCoroutines.ContainsKey(animationKey))
+        // Почему то при включенной Pulse-анимации иногда не срабатывает Bounce анимация
+        // Однако с задержкой все работает корректно
+        // yield return new WaitForSeconds(0.05f); // Небольшая задержка перед началом анимации
+        int startAngles = polygon.Angles;
+        float time = 0f;
+        
+        while (time < duration)
         {
-            // Анимация уже запущена
-            return;
+            time += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, time / duration);
+            
+            // Плавное изменение количества сторон
+            int currentAngles = Mathf.RoundToInt(Mathf.Lerp(startAngles, targetAngles, t));
+            
+            if (currentAngles != polygon.Angles)
+            {
+                polygon.Angles = currentAngles;
+                //StartBounceAnimation();
+                yield return BounceAnimation();
+            }
+            
+            yield return null;
         }
-
-        Coroutine animationCoroutine = null;
-
-        switch (animationKey)
-        {
-            case PULSE_ANIMATION_KEY:
-                animationCoroutine = StartCoroutine(PulseAnimation());
-                break;
-            case ROTATION_ANIMATION_KEY:
-                animationCoroutine = StartCoroutine(RotationAnimation());
-                break;
-            default:
-                Debug.LogWarning($"Animation with key {animationKey} not found.");
-                return;
-        }
-
-        if (animationCoroutine != null)
-        {
-            animationCoroutines.Add(animationKey, animationCoroutine);
-        }
+        StopMorphAnimation();
     }
+
+    // ============================ ПУБЛИЧНОЕ API ДЛЯ АНИМАЦИЙ ================================
 
     public void StopAnimation(string animationKey)
     {
@@ -131,6 +191,63 @@ public class PolygonAnimator : MonoBehaviour
             }
             animationCoroutines.Remove(animationKey);
         }
+    }
+
+    public void StartPulseAnimation(float speed = 1f, float pulseAmount = 0.2f)
+    {
+        StopAnimation(PULSE_ANIMATION_KEY);
+        Coroutine animationCoroutine = StartCoroutine(PulseAnimation(speed, pulseAmount));
+        animationCoroutines.Add(PULSE_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopPulseAnimation()
+    {
+        StopAnimation(PULSE_ANIMATION_KEY);
+        polygon.Radius = baseRadius;
+    }
+
+    public void StartRotationAnimation(float speed = 30f)
+    {
+        StopAnimation(ROTATION_ANIMATION_KEY);
+        Coroutine animationCoroutine = StartCoroutine(RotationAnimation(speed));
+        animationCoroutines.Add(ROTATION_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopRotationAnimation()
+    {
+        StopAnimation(ROTATION_ANIMATION_KEY);
+        polygon.transform.rotation = Quaternion.identity;
+    }
+
+    public void StartMorphAnimation(int targetAngles = 3, float duration = 3f)
+    {
+        StopAnimation(MORPH_ANIMATION_KEY);
+        Coroutine animationCoroutine = StartCoroutine(MorphAnimation(targetAngles, duration));
+        animationCoroutines.Add(MORPH_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopMorphAnimation()
+    {
+        StopAnimation(MORPH_ANIMATION_KEY);
+    }
+
+    public void StartBounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
+    {
+        StopAnimation(BOUNCE_ANIMATION_KEY);
+        Coroutine animationCoroutine = StartCoroutine(BounceAnimation(bounceHeight, bounceDuration, speed));
+        animationCoroutines.Add(BOUNCE_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopBounceAnimation()
+    {
+        StopAnimation(BOUNCE_ANIMATION_KEY);
+    }
+
+    public void StartChangeRadiusAnimation(float targetRadius = 2f, float duration = 1f)
+    {
+        StopAnimation(CHANGE_RADIUS_ANIMATION_KEY);
+        Coroutine animationCoroutine = StartCoroutine(ChangeRadiusAnimation(targetRadius, duration));
+        animationCoroutines.Add(CHANGE_RADIUS_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopChangeRadiusAnimation()
+    {
+        StopAnimation(CHANGE_RADIUS_ANIMATION_KEY);
     }
 
 }

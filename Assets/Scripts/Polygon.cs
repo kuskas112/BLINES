@@ -27,7 +27,7 @@ public class Polygon : MonoBehaviour
 
     protected SpriteShapeController shController;
     protected SpriteShapeRenderer shRenderer;
-    protected const int MaxAngles = 20;
+    public const int MaxAngles = 20;
 
     protected virtual void Awake()
     {

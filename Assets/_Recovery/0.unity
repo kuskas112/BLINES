@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ad63799b56f7a243ac1d5f5a3a0c3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DynamicPolygon
-  _angles: 4
+  _angles: 12
   _radius: 1
 --- !u!114 &81163411
 MonoBehaviour:
@@ -307,8 +307,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8655959b9ff8b4c499b4fe98d3947f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatedPolygon
-  polygon: {fileID: 0}
+  polygon: {fileID: 81163410}
   autoStartAnimation: 1
+  baseRadius: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
