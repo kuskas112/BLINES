@@ -1,10 +1,16 @@
 using UnityEngine;
 using UnityEngine.U2D;
+using System.Reflection;
+using System;
 
 public class Polygon : MonoBehaviour
 {
     [SerializeField] protected int _angles = 4;
     [SerializeField] protected float _radius = 1f;
+    [SerializeField] protected Corner cornerMode = Corner.Stretched;
+    protected static Action<Spline, int, int> setCornerModeDelegate;
+
+
     public int Angles
     {
         get => _angles;
@@ -33,11 +39,25 @@ public class Polygon : MonoBehaviour
     {
         shController ??= GetComponent<SpriteShapeController>();
         shRenderer ??= GetComponent<SpriteShapeRenderer>();
+        InitializeDelegate();
     }
 
     protected virtual void Start()
     {
         UpdatePolygonShape();
+    }
+
+    protected static void InitializeDelegate()
+    {
+        var method = typeof(Spline).GetMethod("SetCornerMode",
+            BindingFlags.NonPublic | BindingFlags.Instance);
+        
+        if (method != null)
+        {
+            setCornerModeDelegate = (Action<Spline, int, int>)
+                Delegate.CreateDelegate(typeof(Action<Spline, int, int>), method);
+            
+        }
     }
    
     protected virtual void UpdatePolygonShape()
@@ -52,15 +72,16 @@ public class Polygon : MonoBehaviour
             
             shController.spline.InsertPointAt(i, new Vector3(x, y, 0));
             
-            // Делаем углы острыми
             shController.spline.SetTangentMode(i, ShapeTangentMode.Linear);
+            shController.spline.SetCorner(i, true);
+            setCornerModeDelegate?.Invoke(shController.spline, i, (int)cornerMode);
         }
         
         shController.spline.isOpenEnded = false;
         shController.RefreshSpriteShape();
     }
 
-    private void OnValidate()
+    protected void OnValidate()
     {
         if(shController != null && shRenderer != null) Angles = _angles; // Триггер обновления при изменении в инспекторе
     }

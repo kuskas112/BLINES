@@ -31,12 +31,12 @@ public class PolygonAnimator : MonoBehaviour
 
     
 
-    private const string PULSE_ANIMATION_KEY = "pulse";
-    private const string ROTATION_ANIMATION_KEY = "rotation";
-    private const string MORPH_ANIMATION_KEY = "morph";
-    private const string BOUNCE_ANIMATION_KEY = "bounce";
-    private const string CHANGE_RADIUS_ANIMATION_KEY = "changeRadius";
-    private const string SHAKE_ANIMATION_KEY = "shake";
+    public const string PULSE_ANIMATION_KEY = "pulse";
+    public const string ROTATION_ANIMATION_KEY = "rotation";
+    public const string MORPH_ANIMATION_KEY = "morph";
+    public const string BOUNCE_ANIMATION_KEY = "bounce";
+    public const string CHANGE_RADIUS_ANIMATION_KEY = "changeRadius";
+    public const string SHAKE_ANIMATION_KEY = "shake";
     
     private Dictionary<string, Coroutine> animationCoroutines = new();
 
@@ -98,7 +98,7 @@ public class PolygonAnimator : MonoBehaviour
         polygon.transform.rotation = Quaternion.identity;
     }
 
-    private bool IsAnimationRunning(string animationKey)
+    public bool IsAnimationRunning(string animationKey)
     {
         return animationCoroutines.ContainsKey(animationKey);
     }
