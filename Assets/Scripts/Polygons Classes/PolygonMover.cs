@@ -71,6 +71,8 @@ public class PolygonMover : MonoBehaviour
         }
     }
 
+    // ==================== ПУБЛИЧНЫЕ МЕТОДЫ ====================
+
     public void StartPatrol(float pointDuration = 3f)
     {
         AnimationCurve curve = patrolCurveType == PatrolCurveType.EaseOut ? MoveCurve : LinearCurve;
@@ -110,6 +112,10 @@ public class PolygonMover : MonoBehaviour
     }
 
     // ==================== КОРУТИНЫ ====================
+
+    // Патрулирование между точками
+    // Возвращается в начало после достижения последней точки
+    // По умолчанию используется линейная кривая
     private IEnumerator PatrolCoroutine(float pointDuration, AnimationCurve curve = null)
     {
         curve ??= LinearCurve;
@@ -122,6 +128,8 @@ public class PolygonMover : MonoBehaviour
         }
     }
 
+    // Перемещение к целевой позиции с заданной кривой
+    // По умолчанию используется EaseOut кривая
     private IEnumerator MoveCoroutine(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         IsMoving = true;

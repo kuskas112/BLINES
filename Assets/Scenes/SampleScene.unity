@@ -323,7 +323,7 @@ MonoBehaviour:
   autoStartAnimation: 1
   pulseEnabled: 0
   pulseSpeed: 5
-  pulseAmount: 0.2
+  pulseAmount: 0.3
   shakeEnabled: 0
   shakeSpeed: 1
   shakeOffset: 50
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PolygonMover
   polygon: {fileID: 0}
-  IsMoving: 0
+  IsMoving: 1
   MoveCurve:
     serializedVersion: 2
     m_Curve:
@@ -367,11 +367,11 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0.45339254
       value: 0.8512337
-      inSlope: 0.86267954
-      outSlope: 0.86267954
+      inSlope: 0.98226225
+      outSlope: 0.98226225
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
+      inWeight: 0.18569699
       outWeight: 0.13411172
     - serializedVersion: 3
       time: 1
@@ -385,6 +385,14 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  patrolEnabled: 0
+  patrolPointDuration: 0.75
+  patrolCurveType: 0
+  patrolPoints:
+  - {x: -3, y: -3}
+  - {x: 3, y: -3}
+  - {x: 3, y: 3}
+  - {x: -3, y: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
