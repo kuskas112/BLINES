@@ -9,13 +9,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         polygonObject = GameObject.Find("MorphTesterPolygon");
-        polygon = polygonObject.GetComponent<Polygon>();
-        polygonAnimator = polygonObject.GetComponent<PolygonAnimator>();
+        polygon = polygonObject?.GetComponent<Polygon>();
+        polygonAnimator = polygonObject?.GetComponent<PolygonAnimator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(polygonObject == null) return;
         if(polygon.Angles < 12 && polygonAnimator.IsAnimationRunning(PolygonAnimator.MORPH_ANIMATION_KEY) == false)
         {
             polygonAnimator.StartMorphAnimation(12, 8f);

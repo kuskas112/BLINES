@@ -146,11 +146,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Center.x
-      value: -0.00024414062
+      value: 0.14633536
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: m_LocalAABB.m_Center.y
+      value: 0.000032305717
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.5114746
+      value: 1.3855715
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: m_LocalAABB.m_Extent.y
+      value: 1.4567797
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: aa40f51bca374cf4f9d57a4848d41708, type: 2}
+    - target: {fileID: 2814522170655053480, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: _angles
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814522170655053480, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: cornerMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3300301474982106795, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalScale.x
@@ -206,7 +226,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3652482289858753160, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Name
-      value: Polygon (3)
+      value: RunningTesterPolygon
+      objectReference: {fileID: 0}
+    - target: {fileID: 3652482289858753160, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5736173334236650060, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: patrolEnabled
@@ -609,27 +633,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Center.x
-      value: 0.14648426
+      value: 0.14633536
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Center.y
-      value: -0.00012207031
+      value: 0.000032305717
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.3857422
+      value: 1.3855715
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.y
-      value: 1.456665
+      value: 1.4567797
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: b5390be62da697d40ae45fc969c5a44b, type: 2}
+      objectReference: {fileID: 2100000, guid: ad5a019a04ac6434d94b1b7d3b4cea92, type: 2}
     - target: {fileID: 2814522170655053480, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: _angles
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2814522170655053480, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: cornerMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3300301474982106795, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1284,6 +1312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MorphTesterPolygon
       objectReference: {fileID: 0}
+    - target: {fileID: 3652482289858753160, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5736173334236650060, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: patrolEnabled
       value: 0
@@ -1373,6 +1405,14 @@ PrefabInstance:
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: m_LocalAABB.m_Center.x
+      value: -0.00024414062
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
+      propertyPath: m_LocalAABB.m_Extent.x
+      value: 1.5114746
       objectReference: {fileID: 0}
     - target: {fileID: 3300301474982106795, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalPosition.x
