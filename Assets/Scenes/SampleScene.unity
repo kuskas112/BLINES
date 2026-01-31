@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 0
     m_ControlPoints:
-    - position: {x: 1, y: 0, z: 0}
+    - position: {x: 0.8356208, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 0
       m_CornerMode: 1
-    - position: {x: -0.00000004371139, y: 1, z: 0}
+    - position: {x: -0.000000036526146, y: 0.8356208, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 0
       m_CornerMode: 1
-    - position: {x: -1, y: -0.00000008742278, z: 0}
+    - position: {x: -0.8356208, y: -0.00000007305229, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 0
       m_CornerMode: 1
-    - position: {x: 0.000000011924881, y: -1, z: 0}
+    - position: {x: 0.000000009964679, y: -0.8356208, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -272,8 +272,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 0.00000011920929, y: 0, z: 0}
-    m_Extent: {x: 1.3535252, y: 1.353544, z: 0}
+    m_Center: {x: 0.00000011920929, y: 0.00000011920929, z: 0}
+    m_Extent: {x: 1.1889744, y: 1.189079, z: 0}
   m_SpriteSortPoint: 0
 --- !u!4 &81163409
 Transform:
@@ -283,10 +283,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 81163406}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.56, y: -3.22, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0, y: -0, z: 0.3190818, w: 0.9477272}
+  m_LocalPosition: {x: -0.4, y: -2.42, z: 0}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DynamicPolygon
   _angles: 4
-  _radius: 1
+  _radius: 0.8356208
   shController: {fileID: 81163407}
   shRenderer: {fileID: 81163408}
 --- !u!114 &81163411
@@ -321,14 +321,14 @@ MonoBehaviour:
   polygon: {fileID: 81163410}
   baseRadius: 1
   autoStartAnimation: 1
-  pulseEnabled: 0
+  pulseEnabled: 1
   pulseSpeed: 5
   pulseAmount: 0.3
   shakeEnabled: 0
   shakeSpeed: 1
   shakeOffset: 50
-  rotationEnabled: 0
-  rotationSpeed: 30
+  rotationEnabled: 1
+  rotationSpeed: 50
 --- !u!114 &81163412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -389,10 +389,10 @@ MonoBehaviour:
   patrolPointDuration: 0.75
   patrolCurveType: 0
   patrolPoints:
-  - {x: -3, y: -3}
-  - {x: 3, y: -3}
-  - {x: 3, y: 3}
-  - {x: -3, y: 3}
+  - {x: -2, y: -2}
+  - {x: 2, y: -2}
+  - {x: 2, y: 2}
+  - {x: -2, y: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
