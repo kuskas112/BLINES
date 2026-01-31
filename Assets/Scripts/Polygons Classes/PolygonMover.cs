@@ -20,6 +20,7 @@ public class PolygonMover : MonoBehaviour
     }
     public PatrolCurveType patrolCurveType = PatrolCurveType.Linear;
     public Vector2[] patrolPoints;
+    private Coroutine patrolCoroutine = null;
 
     private void Awake()
     {
@@ -73,9 +74,21 @@ public class PolygonMover : MonoBehaviour
     public void StartPatrol(float pointDuration = 3f)
     {
         AnimationCurve curve = patrolCurveType == PatrolCurveType.EaseOut ? MoveCurve : LinearCurve;
+        if (patrolCoroutine != null)
+        {
+            StopPatrol();
+        }
         if (patrolEnabled && patrolPoints.Length > 1)
         {
-            StartCoroutine(PatrolCoroutine(pointDuration, curve));
+            patrolCoroutine = StartCoroutine(PatrolCoroutine(pointDuration, curve));
+        }
+    }
+    public void StopPatrol()
+    {
+        if (patrolCoroutine != null)
+        {
+            StopCoroutine(patrolCoroutine);
+            patrolCoroutine = null;
         }
     }
 

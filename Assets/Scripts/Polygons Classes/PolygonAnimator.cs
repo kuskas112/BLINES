@@ -189,6 +189,7 @@ public class PolygonAnimator : MonoBehaviour
     private IEnumerator MorphAnimation(int targetAngles = 3, float duration = 3f)
     {
         // Почему-то при включенной Pulse-анимации иногда не срабатывает Bounce анимация внутри Morph-а
+        // Возможно из-за того, что Pulse постоянно меняет радиус и мешает визуальному эффекту
         // Однако с задержкой все работает корректно
 
         // Пока уберу, чтобы сохранялось корректное время выполнения анимации, но надо иметь в виду
