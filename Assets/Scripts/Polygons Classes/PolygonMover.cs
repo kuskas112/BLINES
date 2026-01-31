@@ -47,7 +47,7 @@ public class PolygonMover : MonoBehaviour
 
     private void OnValidate()
     {
-        Start();
+        if(Application.isPlaying) Start();
     }
 
     // Подобранная вручную кривая,

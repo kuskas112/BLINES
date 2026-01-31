@@ -71,6 +71,7 @@ public class PolygonAnimator : MonoBehaviour
 
     private void OnValidate()
     {
+        if (!Application.isPlaying) return;
         if (autoStartAnimation) 
         {
             StopAllAnimations();
