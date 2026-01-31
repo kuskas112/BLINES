@@ -5,9 +5,21 @@ using System.Collections.Generic;
 public class PolygonMover : MonoBehaviour
 {
     public Polygon polygon;
+    [HideInInspector]
     public bool IsMoving = false;
     public AnimationCurve MoveCurve = null;
     private AnimationCurve LinearCurve = AnimationCurve.Linear(0, 0, 1, 1);
+
+    [Header("Patrol Settings")]
+    public bool patrolEnabled = false;
+    public float patrolPointDuration = 1.5f;
+    public enum PatrolCurveType
+    {
+        Linear,
+        EaseOut
+    }
+    public PatrolCurveType patrolCurveType = PatrolCurveType.Linear;
+    public Vector2[] patrolPoints;
 
     private void Awake()
     {
@@ -16,10 +28,25 @@ public class PolygonMover : MonoBehaviour
 
     private void Start()
     {
+        patrolPoints ??= new Vector2[]
+        {
+            new(-4f, 0f),
+            new(4f, 0f),
+            new(4f, 4f),
+            new(-4f, 4f)
+        };
+
+        if (patrolEnabled) StartPatrol(patrolPointDuration);
+
         if(MoveCurve == null)
         {
             InitializeCurve();
         }
+    }
+
+    private void OnValidate()
+    {
+        Start();
     }
 
     // Подобранная вручную кривая,
@@ -43,6 +70,15 @@ public class PolygonMover : MonoBehaviour
         }
     }
 
+    public void StartPatrol(float pointDuration = 3f)
+    {
+        AnimationCurve curve = patrolCurveType == PatrolCurveType.EaseOut ? MoveCurve : LinearCurve;
+        if (patrolEnabled && patrolPoints.Length > 1)
+        {
+            StartCoroutine(PatrolCoroutine(pointDuration, curve));
+        }
+    }
+
     public void MovePolygon(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         if (!IsMoving)
@@ -60,10 +96,22 @@ public class PolygonMover : MonoBehaviour
         MovePolygon(targetPosition, duration, LinearCurve);
     }
 
+    // ==================== КОРУТИНЫ ====================
+    private IEnumerator PatrolCoroutine(float pointDuration, AnimationCurve curve = null)
+    {
+        curve ??= LinearCurve;
+        int currentPointIndex = 0;
+        while (patrolEnabled)
+        {
+            Vector2 targetPosition = patrolPoints[currentPointIndex];
+            yield return MoveCoroutine(targetPosition, pointDuration, curve);
+            currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+        }
+    }
+
     private IEnumerator MoveCoroutine(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         IsMoving = true;
-        yield return new WaitForSeconds(1f);
         Vector2 startPosition = polygon.transform.position;
         float time = 0f;
         AnimationCurve usedCurve = curve ?? MoveCurve;
