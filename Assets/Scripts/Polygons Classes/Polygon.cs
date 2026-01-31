@@ -25,8 +25,8 @@ public class Polygon : MonoBehaviour
         }
     }
 
-    protected SpriteShapeController shController;
-    protected SpriteShapeRenderer shRenderer;
+    [SerializeField] protected SpriteShapeController shController;
+    [SerializeField] protected SpriteShapeRenderer shRenderer;
     public const int MaxAngles = 20;
 
     protected virtual void Awake()

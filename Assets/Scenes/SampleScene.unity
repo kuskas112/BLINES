@@ -153,31 +153,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Spline:
-    m_IsOpenEnded: 1
+    m_IsOpenEnded: 0
     m_ControlPoints:
-    - position: {x: -2, y: 0, z: 0}
-      leftTangent: {x: -0.9738884, y: -0.9367374, z: -0}
-      rightTangent: {x: 0.8658923, y: 0.83286107, z: 0}
-      mode: 1
+    - position: {x: 1, y: 0, z: 0}
+      leftTangent: {x: 0, y: 0, z: 0}
+      rightTangent: {x: 0, y: 0, z: 0}
+      mode: 0
       height: 1
       spriteIndex: 0
-      corner: 1
+      corner: 0
       m_CornerMode: 1
-    - position: {x: 0, y: 0, z: 0}
-      leftTangent: {x: -0.92568946, y: 0.003089726, z: -0}
-      rightTangent: {x: 0.92568946, y: -0.003089726, z: 0}
-      mode: 1
+    - position: {x: -0.00000004371139, y: 1, z: 0}
+      leftTangent: {x: 0, y: 0, z: 0}
+      rightTangent: {x: 0, y: 0, z: 0}
+      mode: 0
       height: 1
       spriteIndex: 0
-      corner: 1
+      corner: 0
       m_CornerMode: 1
-    - position: {x: 2, y: 0, z: 0}
-      leftTangent: {x: -0.78340197, y: 0.751823, z: 0}
-      rightTangent: {x: 0.6651766, y: -0.6383633, z: -0}
-      mode: 1
+    - position: {x: -1, y: -0.00000008742278, z: 0}
+      leftTangent: {x: 0, y: 0, z: 0}
+      rightTangent: {x: 0, y: 0, z: 0}
+      mode: 0
       height: 1
       spriteIndex: 0
-      corner: 1
+      corner: 0
+      m_CornerMode: 1
+    - position: {x: 0.000000011924881, y: -1, z: 0}
+      leftTangent: {x: 0, y: 0, z: 0}
+      rightTangent: {x: 0, y: 0, z: 0}
+      mode: 0
+      height: 1
+      spriteIndex: 0
+      corner: 0
       m_CornerMode: 1
   m_SpriteShape: {fileID: 11400000, guid: f24cddf7c09a6442abbce710a6fd7397, type: 2}
   m_FillPixelPerUnit: 1
@@ -264,8 +272,8 @@ SpriteShapeRenderer:
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   - {fileID: 21300000, guid: 608e61deb05c54660bebf5a4dd2ee02d, type: 3}
   m_LocalAABB:
-    m_Center: {x: 0.001126051, y: 0.16119447, z: 0}
-    m_Extent: {x: 2.3951828, y: 0.45871753, z: 0}
+    m_Center: {x: 0.00000011920929, y: 0, z: 0}
+    m_Extent: {x: 1.3535252, y: 1.353544, z: 0}
   m_SpriteSortPoint: 0
 --- !u!4 &81163409
 Transform:
@@ -296,6 +304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DynamicPolygon
   _angles: 4
   _radius: 1
+  shController: {fileID: 81163407}
+  shRenderer: {fileID: 81163408}
 --- !u!114 &81163411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,8 +318,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8655959b9ff8b4c499b4fe98d3947f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatedPolygon
-  polygon: {fileID: 0}
+  polygon: {fileID: 81163410}
+  baseRadius: 1
   autoStartAnimation: 1
+  pulseEnabled: 0
+  pulseSpeed: 5
+  pulseAmount: 0.2
+  shakeEnabled: 0
+  shakeSpeed: 1
+  shakeOffset: 50
+  rotationEnabled: 0
+  rotationSpeed: 30
 --- !u!114 &81163412
 MonoBehaviour:
   m_ObjectHideFlags: 0

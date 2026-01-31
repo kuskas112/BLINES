@@ -6,9 +6,30 @@ using System.Collections.Generic;
 public class PolygonAnimator : MonoBehaviour 
 {
 
+    [Header("Basic Settings")]
     public Polygon polygon;
+    [SerializeField] private float baseRadius = 1f;
     [SerializeField] private bool autoStartAnimation = true;
-    private float baseRadius = 1f;
+
+    [Space()]
+    [Header("Default Animation Parameters")]
+
+    [Header("Pulse Animation")]
+    [SerializeField] private bool pulseEnabled = false;
+    [SerializeField] private float pulseSpeed = 1f;
+    [SerializeField] private float pulseAmount = 0.2f;
+
+    [Header("Shake Animation")]
+    [SerializeField] private bool shakeEnabled = false;
+    [SerializeField] private float shakeSpeed = 1f;
+    [SerializeField] private float shakeOffset = 50f;
+
+    [Header("Rotation Animation")]
+    [SerializeField] private bool rotationEnabled = false;
+    [SerializeField] private float rotationSpeed = 30f;
+
+
+    
 
     private const string PULSE_ANIMATION_KEY = "pulse";
     private const string ROTATION_ANIMATION_KEY = "rotation";
@@ -19,6 +40,7 @@ public class PolygonAnimator : MonoBehaviour
     
     private Dictionary<string, Coroutine> animationCoroutines = new();
 
+
     private void Awake()
     {
         polygon ??= GetComponent<Polygon>();    
@@ -28,16 +50,32 @@ public class PolygonAnimator : MonoBehaviour
     {
         baseRadius = polygon.Radius;
         
-        if (autoStartAnimation)
-        {
-            StartDefaultAnimations();
-        }
+        if (autoStartAnimation) StartDefaultAnimations();
     }
 
     public void StartDefaultAnimations()
     {
-        StartPulseAnimation();
-        StartRotationAnimation();
+        if (pulseEnabled)
+        {
+            StartPulseAnimation(pulseSpeed, pulseAmount);
+        }
+        if (shakeEnabled)
+        {
+            StartShakeAnimation(shakeSpeed, shakeOffset);
+        }
+        if (rotationEnabled)
+        {
+            StartRotationAnimation(rotationSpeed);
+        }
+    }
+
+    private void OnValidate()
+    {
+        if (autoStartAnimation) 
+        {
+            StopAllAnimations();
+            StartDefaultAnimations();
+        }
     }
     
     public void StopAllAnimations()
@@ -92,17 +130,17 @@ public class PolygonAnimator : MonoBehaviour
         }
     }
 
-    private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float duration = 0.25f, float speed = 1f)
+    private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
     {
         float time = 0f;
         float startRadius = polygon.Radius;
         
-        while (time < duration)
+        while (time < bounceDuration)
         {
             time += Time.deltaTime * speed;
             
             // Нормализованное время от 0 до 1
-            float t = Mathf.Clamp01(time / duration);
+            float t = Mathf.Clamp01(time / bounceDuration);
             
             // Формула для bounce эффекта (затухающая синусоида)
             float bounce = Mathf.Sin(t * Mathf.PI * 3) * // 3 колебания
