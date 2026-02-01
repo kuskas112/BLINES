@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MuscularBlue
+  m_Name: DottedRed
   m_Shader: {fileID: 4800000, guid: 3142ac9758ff0674e9a2ceea240df060, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,13 +41,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _EdgeWidth: 0.087
+    - _EdgeWidth: 0.7
     - _EnableExternalAlpha: 0
-    - _GlowIntensity: 1.48
+    - _GlowIntensity: 3
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _NeonColor: {r: 0.00032334888, g: 0.00032334888, b: 1.4980392, a: 1}
+    - _NeonColor: {r: 1.319508, g: 0, b: 0, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

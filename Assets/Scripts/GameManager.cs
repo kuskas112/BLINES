@@ -6,24 +6,31 @@ public class GameManager : MonoBehaviour
     private GameObject polygonObject;
     private Polygon polygon;
     private PolygonAnimator polygonAnimator;
+    private MaterialSetter materialSetter;
     void Start()
     {
         polygonObject = GameObject.Find("MorphTesterPolygon");
         polygon = polygonObject?.GetComponent<Polygon>();
         polygonAnimator = polygonObject?.GetComponent<PolygonAnimator>();
+        materialSetter = polygonObject?.GetComponent<MaterialSetter>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        int angleLimit = 8;
         if(polygonObject == null) return;
-        if(polygon.Angles < 12 && polygonAnimator.IsAnimationRunning(PolygonAnimator.MORPH_ANIMATION_KEY) == false)
+        if(polygon.Angles < angleLimit && polygonAnimator.IsAnimationRunning(PolygonAnimator.MORPH_ANIMATION_KEY) == false)
         {
-            polygonAnimator.StartMorphAnimation(12, 8f);
+            float time = angleLimit - polygon.Angles; 
+            polygonAnimator.StartMorphAnimation(angleLimit, time);
+            materialSetter.StartLerpEdgeNeonColor(Color.green, time);
         }
-        else if(polygon.Angles >= 12 && polygonAnimator.IsAnimationRunning(PolygonAnimator.MORPH_ANIMATION_KEY) == false)
+        else if(polygon.Angles >= angleLimit && polygonAnimator.IsAnimationRunning(PolygonAnimator.MORPH_ANIMATION_KEY) == false)
         {
-            polygonAnimator.StartMorphAnimation(3, 8f);
+            float time = angleLimit - 3; 
+            polygonAnimator.StartMorphAnimation(3, time);
+            materialSetter.StartLerpEdgeNeonColor(Color.black, time);
         }
     }
 }

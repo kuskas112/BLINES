@@ -72,7 +72,7 @@ public class PolygonAnimator : MonoBehaviour
     private void OnValidate()
     {
         if (!Application.isPlaying) return;
-        if (autoStartAnimation) 
+        if (autoStartAnimation && gameObject.activeInHierarchy) 
         {
             StopAllAnimations();
             StartDefaultAnimations();
@@ -135,13 +135,13 @@ public class PolygonAnimator : MonoBehaviour
     {
         float time = 0f;
         float startRadius = polygon.Radius;
-        
+        float invDuration = 1f / bounceDuration; // оказывается умножение быстрее деления в 3-6 раз
         while (time < bounceDuration)
         {
             time += Time.deltaTime * speed;
             
             // Нормализованное время от 0 до 1
-            float t = Mathf.Clamp01(time / bounceDuration);
+            float t = Mathf.Clamp01(time * invDuration);
             
             // Формула для bounce эффекта (затухающая синусоида)
             float bounce = Mathf.Sin(t * Mathf.PI * 3) * // 3 колебания
@@ -159,11 +159,11 @@ public class PolygonAnimator : MonoBehaviour
     {
         float time = 0f;
         float startRadius = polygon.Radius;
-        
+        float invDuration1 = 1f / duration;
         while (time < duration)
         {
             time += Time.deltaTime;
-            float t = time / duration;
+            float t = time * invDuration1;
             
             // Плавное ускорение и замедление
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
@@ -197,11 +197,11 @@ public class PolygonAnimator : MonoBehaviour
         // yield return new WaitForSeconds(0.05f); // Небольшая задержка перед началом анимации
         int startAngles = polygon.Angles;
         float time = 0f;
-        
+        float invDuration = 1f / duration;
         while (time < duration)
         {
             time += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, time / duration);
+            float t = Mathf.SmoothStep(0f, 1f, time * invDuration);
             
             // Плавное изменение количества сторон
             int currentAngles = Mathf.RoundToInt(Mathf.Lerp(startAngles, targetAngles, t));

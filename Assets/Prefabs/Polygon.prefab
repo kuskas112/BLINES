@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2814522170655053480}
   - component: {fileID: 645156467422486360}
   - component: {fileID: 5736173334236650060}
+  - component: {fileID: 3949544764620656856}
   m_Layer: 0
   m_Name: Polygon
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3652482289858753160}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -62,7 +63,7 @@ SpriteShapeRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
-  - {fileID: 2100000, guid: e4bbc9ea57b8b504282efd201a7bad7a, type: 2}
+  - {fileID: 2100000, guid: 5fa79f67298f88741a46805e30c75589, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,7 +117,7 @@ MonoBehaviour:
   m_Spline:
     m_IsOpenEnded: 0
     m_ControlPoints:
-    - position: {x: 1.2227628, y: 0, z: 0}
+    - position: {x: 1, y: 0, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -124,7 +125,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 2
-    - position: {x: 0.61138135, y: 1.0589437, z: 0}
+    - position: {x: 0.49999997, y: 0.86602545, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -132,7 +133,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 2
-    - position: {x: -0.6113815, y: 1.0589436, z: 0}
+    - position: {x: -0.50000006, y: 0.8660254, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -140,7 +141,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 2
-    - position: {x: -1.2227628, y: -0.00000010689732, z: 0}
+    - position: {x: -1, y: -0.00000008742278, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -148,7 +149,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 2
-    - position: {x: -0.6113813, y: -1.0589437, z: 0}
+    - position: {x: -0.4999999, y: -0.86602545, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -156,7 +157,7 @@ MonoBehaviour:
       spriteIndex: 0
       corner: 1
       m_CornerMode: 2
-    - position: {x: 0.6113813, y: -1.0589437, z: 0}
+    - position: {x: 0.4999999, y: -0.86602545, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
       mode: 0
@@ -200,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DynamicPolygon
   _angles: 6
-  _radius: 1.2227628
+  _radius: 1
   cornerMode: 2
   shController: {fileID: 6631770076537988699}
   shRenderer: {fileID: 2290238774974978699}
@@ -291,3 +292,18 @@ MonoBehaviour:
   - {x: 2, y: -2}
   - {x: 2, y: 2}
   - {x: -2, y: 2}
+--- !u!114 &3949544764620656856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3652482289858753160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3cc04f944454f429fadddbf5640f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaterialSetter
+  shRenderer: {fileID: 2290238774974978699}
+  EdgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
+  EdgeMaterial: {fileID: 2100000, guid: 5fa79f67298f88741a46805e30c75589, type: 2}

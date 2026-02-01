@@ -6,14 +6,35 @@ public class MaterialSetter : MonoBehaviour
 {
     private MaterialPropertyBlock propertyBlock;
     public SpriteShapeRenderer shRenderer;
-    public Color EdgeNeonColor;
-    public Material EdgeMaterial;
+
+    [SerializeField]
+    private Color _edgeNeonColor;
+    public Color EdgeNeonColor { 
+        get { return _edgeNeonColor; }
+        set
+        {
+            _edgeNeonColor = value;
+            UpdateEdgeNeonColor();
+        } 
+    }
+
+    [SerializeField]
+    private Material _edgeMaterial;
+    public Material EdgeMaterial
+    {
+        get { return _edgeMaterial; }
+        set
+        {
+            _edgeMaterial = value;
+            UpdateEdgeMaterial();
+        }
+    }
 
     private void Start()
     {
+        // По умолчанию берем материал из рендерера
         EdgeMaterial = shRenderer.sharedMaterials[1];
         EdgeNeonColor = EdgeMaterial.GetColor("_NeonColor");
-        StartLerpEdgeNeonColor(Color.purple, 4f);
     }
 
     void Awake()
@@ -26,11 +47,6 @@ public class MaterialSetter : MonoBehaviour
         }
     }
 
-    public void SetEdgeMaterial(Material mat)
-    {
-        EdgeMaterial = mat;
-        UpdateEdgeMaterial();
-    }
     private void UpdateEdgeMaterial()
     {
         Material[] mats = shRenderer.sharedMaterials;
@@ -38,11 +54,6 @@ public class MaterialSetter : MonoBehaviour
         shRenderer.sharedMaterials = mats;
     }
 
-    public void SetEdgeNeonColor(Color color)
-    {
-        EdgeNeonColor = color;
-        UpdateEdgeNeonColor();
-    }
     private void UpdateEdgeNeonColor()
     {
         shRenderer.GetPropertyBlock(propertyBlock, 1);
@@ -61,15 +72,13 @@ public class MaterialSetter : MonoBehaviour
 
     private void OnValidate()
     {
-        // Для работы в редакторе
-
-        if (shRenderer != null)
-        {
-            UpdateEdgeNeonColor();
-            UpdateEdgeMaterial();
-        }
+        // Долго над проверкой не думал, она все равно только для редактора
+        if (shRenderer == null || EdgeMaterial == null || propertyBlock == null) return;
+        UpdateEdgeNeonColor();
+        // Мне кажется обновлять материал каждый раз избыточно, 
+        // из редактора в рантайм это нужно делать крайне редко 
+        //UpdateEdgeMaterial();
     }
-
 
     // ================== КОРУТИНЫ =======================
 
@@ -77,15 +86,16 @@ public class MaterialSetter : MonoBehaviour
     {
         float time = 0f;
         Color startColor = EdgeNeonColor;
+        float invDuration = 1f / duration;
         while (time < duration)
         {
-            float t = time / duration;
+            float t = time * invDuration;
             float smoothT = Mathf.SmoothStep(0f, 1f, t);
             Color currentColor = Color.Lerp(startColor, targetColor, smoothT);
-            SetEdgeNeonColor(currentColor);
+            EdgeNeonColor = currentColor;
             time += Time.deltaTime;
             yield return null;
         }
-        SetEdgeNeonColor(targetColor);
+        EdgeNeonColor = targetColor;
     }
 }
