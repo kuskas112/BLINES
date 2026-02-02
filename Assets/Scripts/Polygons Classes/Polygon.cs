@@ -8,7 +8,7 @@ public class Polygon : MonoBehaviour
     [SerializeField] protected int _angles = 4;
     [SerializeField] protected float _radius = 1f;
     [SerializeField] protected Corner cornerMode = Corner.Stretched;
-    protected static Action<Spline, int, int> setCornerModeDelegate;
+    private static Action<Spline, int, int> setCornerModeDelegate;
 
 
     public int Angles

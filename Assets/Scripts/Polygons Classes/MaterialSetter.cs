@@ -6,6 +6,7 @@ public class MaterialSetter : MonoBehaviour
 {
     private MaterialPropertyBlock propertyBlock;
     public SpriteShapeRenderer shRenderer;
+    public bool RandomizeColorOnWake = false;
 
     [SerializeField]
     private Color _edgeNeonColor;
@@ -30,13 +31,6 @@ public class MaterialSetter : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        // По умолчанию берем материал из рендерера
-        EdgeMaterial = shRenderer.sharedMaterials[1];
-        EdgeNeonColor = EdgeMaterial.GetColor("_NeonColor");
-    }
-
     void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
@@ -44,6 +38,14 @@ public class MaterialSetter : MonoBehaviour
         {
             Debug.LogError("SpriteShapeRenderer не найден!", this);
             enabled = false;
+        }
+        
+        // По умолчанию берем материал из рендерера
+        EdgeMaterial = shRenderer.sharedMaterials[1];
+        EdgeNeonColor = EdgeMaterial.GetColor("_NeonColor");
+        if (RandomizeColorOnWake)
+        {
+            EdgeNeonColor = RandomizeColor();
         }
     }
 
@@ -65,7 +67,7 @@ public class MaterialSetter : MonoBehaviour
     {
         StartCoroutine(LerpEdgeNeonColor(targetColor, duration));
     }
-    public Color RandomizeColor()
+    public static Color RandomizeColor()
     {
         return Random.ColorHSV(0f, 1f, 0.8f, 1f, 1f, 1.5f); // HDR цвета
     }
