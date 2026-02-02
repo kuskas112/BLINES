@@ -1,11 +1,51 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
 public class BasicObjectAnimator : MonoBehaviour
-// Появилась нужда в произвольных полигонах, не наследуемых от класса Polygon.
-// К ним применимы не все анимации из PolygonAnimator.cs, поэтому выношу общие корутины сюда.
 {
+
+    public const string ROTATION_ANIMATION_KEY = "rotation";
+    public const string SHAKE_ANIMATION_KEY = "shake";
+    protected Dictionary<string, Coroutine> animationCoroutines = new();
+
+    public virtual void StartAnimation(string animationKey, Coroutine animationCoroutine)
+    {
+        StopAnimation(animationKey);
+        animationCoroutines.Add(animationKey, animationCoroutine);
+    }
+
+    public virtual void StopAnimation(string animationKey)
+    {
+        if (animationCoroutines.TryGetValue(animationKey, out Coroutine animationCoroutine))
+        {
+            if (animationCoroutine != null)
+            {
+                StopCoroutine(animationCoroutine);
+            }
+            animationCoroutines.Remove(animationKey);
+        }
+    }
+
+    public virtual void StopAllAnimations()
+    {
+        foreach (var kvp in animationCoroutines)
+        {
+            if (kvp.Value != null)
+            {
+                StopCoroutine(kvp.Value);
+            }
+        }
+        animationCoroutines.Clear();
+        ResetToBaseShape();
+    }
+    
+    protected virtual void ResetToBaseShape(){}
+
+    public virtual bool IsAnimationRunning(string animationKey)
+    {
+        return animationCoroutines.ContainsKey(animationKey);
+    }
+
     // =================== КОРУТИНЫ =======================
     public static IEnumerator RotationAnimation(Transform transform, float speed = 30f)
     {
@@ -28,6 +68,4 @@ public class BasicObjectAnimator : MonoBehaviour
             yield return null;
         }
     }
-
-
 }

@@ -3,7 +3,7 @@ using UnityEngine.U2D;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PolygonAnimator : MonoBehaviour 
+public class PolygonAnimator : BasicObjectAnimator 
 {
 
     [Header("Basic Settings")]
@@ -29,15 +29,10 @@ public class PolygonAnimator : MonoBehaviour
     [SerializeField] private float rotationSpeed = 30f;   
 
     public const string PULSE_ANIMATION_KEY = "pulse";
-    public const string ROTATION_ANIMATION_KEY = "rotation";
     public const string MORPH_ANIMATION_KEY = "morph";
     public const string BOUNCE_ANIMATION_KEY = "bounce";
     public const string CHANGE_RADIUS_ANIMATION_KEY = "changeRadius";
-    public const string SHAKE_ANIMATION_KEY = "shake";
     
-    private Dictionary<string, Coroutine> animationCoroutines = new();
-
-
     private void Awake()
     {
         polygon ??= GetComponent<Polygon>();    
@@ -75,29 +70,11 @@ public class PolygonAnimator : MonoBehaviour
             StartDefaultAnimations();
         }
     }
-    
-    public void StopAllAnimations()
-    {
-        foreach (var kvp in animationCoroutines)
-        {
-            if (kvp.Value != null)
-            {
-                StopCoroutine(kvp.Value);
-            }
-        }
-        animationCoroutines.Clear();
-        ResetToBaseShape();
-    }
-    
-    private void ResetToBaseShape()
+
+    protected override void ResetToBaseShape()
     {
         polygon.Radius = baseRadius;
         polygon.transform.rotation = Quaternion.identity;
-    }
-
-    public bool IsAnimationRunning(string animationKey)
-    {
-        return animationCoroutines.ContainsKey(animationKey);
     }
 
     // ==================== ОСНОВНЫЕ АНИМАЦИОННЫЕ КОРУТИНЫ ====================
@@ -193,18 +170,6 @@ public class PolygonAnimator : MonoBehaviour
     }
 
     // ============================ ПУБЛИЧНОЕ API ДЛЯ АНИМАЦИЙ ================================
-
-    public void StopAnimation(string animationKey)
-    {
-        if (animationCoroutines.TryGetValue(animationKey, out Coroutine animationCoroutine))
-        {
-            if (animationCoroutine != null)
-            {
-                StopCoroutine(animationCoroutine);
-            }
-            animationCoroutines.Remove(animationKey);
-        }
-    }
 
     public void StartPulseAnimation(float speed = 1f, float pulseAmount = 0.2f)
     {
