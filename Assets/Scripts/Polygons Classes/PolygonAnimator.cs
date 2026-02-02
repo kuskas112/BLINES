@@ -26,10 +26,7 @@ public class PolygonAnimator : MonoBehaviour
 
     [Header("Rotation Animation")]
     [SerializeField] private bool rotationEnabled = false;
-    [SerializeField] private float rotationSpeed = 30f;
-
-
-    
+    [SerializeField] private float rotationSpeed = 30f;   
 
     public const string PULSE_ANIMATION_KEY = "pulse";
     public const string ROTATION_ANIMATION_KEY = "rotation";
@@ -118,19 +115,6 @@ public class PolygonAnimator : MonoBehaviour
         }
     }
 
-    private IEnumerator ShakeAnimation(float speed = 1f, float shakeOffset = 50f)
-    {
-        float time = 0f;
-        
-        while (true)
-        {
-            time += Time.deltaTime * speed;
-            float pulse = Mathf.Sin(time) * shakeOffset;
-            polygon.transform.rotation = Quaternion.Euler(0, 0, baseRadius * (1 + pulse));
-            yield return null;
-        }
-    }
-
     private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
     {
         float time = 0f;
@@ -175,15 +159,6 @@ public class PolygonAnimator : MonoBehaviour
         polygon.Radius = targetRadius;
         
         StopChangeRadiusAnimation();
-    }
-
-    private IEnumerator RotationAnimation(float speed = 30f)
-    {
-        while (true)
-        {
-            transform.Rotate(Vector3.forward, speed * Time.deltaTime);
-            yield return null;
-        }
     }
 
     // Изменение количества углов с Bounce-эффектом
@@ -246,7 +221,7 @@ public class PolygonAnimator : MonoBehaviour
     public void StartRotationAnimation(float speed = 30f)
     {
         StopAnimation(ROTATION_ANIMATION_KEY);
-        Coroutine animationCoroutine = StartCoroutine(RotationAnimation(speed));
+        Coroutine animationCoroutine = StartCoroutine(BasicObjectAnimator.RotationAnimation(polygon.transform, speed));
         animationCoroutines.Add(ROTATION_ANIMATION_KEY, animationCoroutine);
     }
     public void StopRotationAnimation()
@@ -291,7 +266,7 @@ public class PolygonAnimator : MonoBehaviour
     public void StartShakeAnimation(float speed = 1f, float shakeOffset = 50f)
     {
         StopAnimation(SHAKE_ANIMATION_KEY);
-        Coroutine animationCoroutine = StartCoroutine(ShakeAnimation(speed, shakeOffset));
+        Coroutine animationCoroutine = StartCoroutine(BasicObjectAnimator.ShakeAnimation(polygon.transform, speed, shakeOffset));
         animationCoroutines.Add(SHAKE_ANIMATION_KEY, animationCoroutine);
     }
     public void StopShakeAnimation()
