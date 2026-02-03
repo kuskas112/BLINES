@@ -2,29 +2,36 @@ using UnityEngine;
 
 public class ShapeAnimator : BasicObjectAnimator
 {
+    [SerializeField] private bool autoStartAnimation = true;
+
+    [Space()]
+    [Header("Default Animation Parameters")]
+    [Header("Shake Animation")]
+    [SerializeField] private bool shakeEnabled = false;
+    [SerializeField] private float shakeSpeed = 1f;
+    [SerializeField] private float shakeOffset = 50f;
+
+    [Header("Rotation Animation")]
+    [SerializeField] private bool rotationEnabled = false;
+    [SerializeField] private float rotationSpeed = 30f;
 
     private void Start()
     {
-        StartShakeAnimation(transform, 1f, 50f);
-    }
-    public void StartRotationAnimation(Transform transform, float speed = 30f)
-    {
-        Coroutine animationCoroutine = StartCoroutine(BasicObjectAnimator.RotationAnimation(transform, speed));
-        StartAnimation(ROTATION_ANIMATION_KEY, animationCoroutine);
-    }
-    public void StopRotationAnimation()
-    {
-        StopAnimation(ROTATION_ANIMATION_KEY);
+        if (autoStartAnimation)
+        {
+            StartDefaultAnimations();
+        }
     }
 
-    public void StartShakeAnimation(Transform transform, float speed = 1f, float shakeOffset = 50f)
+    private void StartDefaultAnimations()
     {
-        Coroutine animationCoroutine = StartCoroutine(BasicObjectAnimator.ShakeAnimation(transform, speed, shakeOffset));
-        StartAnimation(SHAKE_ANIMATION_KEY, animationCoroutine);
+        if (shakeEnabled)
+        {
+            StartShakeAnimation(transform, shakeSpeed, shakeOffset);
+        }
+        if (rotationEnabled)
+        {
+            StartRotationAnimation(transform, rotationSpeed);
+        }
     }
-    public void StopShakeAnimation()
-    {
-        StopAnimation(SHAKE_ANIMATION_KEY);
-    }
-
 }

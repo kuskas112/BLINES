@@ -53,11 +53,11 @@ public class PolygonAnimator : BasicObjectAnimator
         }
         if (shakeEnabled)
         {
-            StartShakeAnimation(shakeSpeed, shakeOffset);
+            StartShakeAnimation(polygon.transform, shakeSpeed, shakeOffset);
         }
         if (rotationEnabled)
         {
-            StartRotationAnimation(rotationSpeed);
+            StartRotationAnimation(polygon.transform, rotationSpeed);
         }
     }
 
@@ -182,19 +182,6 @@ public class PolygonAnimator : BasicObjectAnimator
         StopAnimation(PULSE_ANIMATION_KEY);
         polygon.Radius = baseRadius;
     }
-
-    public void StartRotationAnimation(float speed = 30f)
-    {
-        StopAnimation(ROTATION_ANIMATION_KEY);
-        Coroutine animationCoroutine = StartCoroutine(BasicObjectAnimator.RotationAnimation(polygon.transform, speed));
-        animationCoroutines.Add(ROTATION_ANIMATION_KEY, animationCoroutine);
-    }
-    public void StopRotationAnimation()
-    {
-        StopAnimation(ROTATION_ANIMATION_KEY);
-        polygon.transform.rotation = Quaternion.identity;
-    }
-
     public void StartMorphAnimation(int targetAngles = 3, float duration = 3f)
     {
         StopAnimation(MORPH_ANIMATION_KEY);
@@ -226,16 +213,5 @@ public class PolygonAnimator : BasicObjectAnimator
     public void StopChangeRadiusAnimation()
     {
         StopAnimation(CHANGE_RADIUS_ANIMATION_KEY);
-    }
-
-    public void StartShakeAnimation(float speed = 1f, float shakeOffset = 50f)
-    {
-        StopAnimation(SHAKE_ANIMATION_KEY);
-        Coroutine animationCoroutine = StartCoroutine(BasicObjectAnimator.ShakeAnimation(polygon.transform, speed, shakeOffset));
-        animationCoroutines.Add(SHAKE_ANIMATION_KEY, animationCoroutine);
-    }
-    public void StopShakeAnimation()
-    {
-        StopAnimation(SHAKE_ANIMATION_KEY);
     }
 }
