@@ -1,7 +1,11 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.U2D;
 using System.Collections;
 using System.Collections.Generic;
+
+// <animationKey, duration>
+public class AnimationEvent : UnityEvent<string, float> { }
 
 public class PolygonAnimator : BasicObjectAnimator 
 {
@@ -32,7 +36,9 @@ public class PolygonAnimator : BasicObjectAnimator
     public const string MORPH_ANIMATION_KEY = "morph";
     public const string BOUNCE_ANIMATION_KEY = "bounce";
     public const string CHANGE_RADIUS_ANIMATION_KEY = "changeRadius";
-    
+
+    public static AnimationEvent onBounce = new();
+
     private void Awake()
     {
         polygon ??= GetComponent<Polygon>();    
@@ -94,6 +100,7 @@ public class PolygonAnimator : BasicObjectAnimator
 
     private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
     {
+        onBounce.Invoke(BOUNCE_ANIMATION_KEY, bounceDuration);
         float time = 0f;
         float startRadius = polygon.Radius;
         float invDuration = 1f / bounceDuration; // оказывается умножение быстрее деления в 3-6 раз
