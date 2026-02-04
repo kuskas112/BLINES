@@ -41,8 +41,8 @@ public class MaterialSetter : MonoBehaviour
         }
         
         // По умолчанию берем материал из рендерера
-        EdgeMaterial = shRenderer.sharedMaterials[1];
-        EdgeNeonColor = EdgeMaterial.GetColor("_NeonColor");
+        _edgeMaterial = shRenderer.sharedMaterials[1];
+        _edgeNeonColor = EdgeMaterial.GetColor("_NeonColor");
         if (RandomizeColorOnWake)
         {
             EdgeNeonColor = RandomizeColor();
@@ -72,6 +72,7 @@ public class MaterialSetter : MonoBehaviour
         return Random.ColorHSV(0f, 1f, 0.8f, 1f, 1f, 1.5f); // HDR цвета
     }
 
+    #if UNITY_EDITOR
     private void OnValidate()
     {
         // Долго над проверкой не думал, она все равно только для редактора
@@ -81,6 +82,7 @@ public class MaterialSetter : MonoBehaviour
         // из редактора в рантайм это нужно делать крайне редко 
         //UpdateEdgeMaterial();
     }
+    #endif
 
     // ================== КОРУТИНЫ =======================
 
