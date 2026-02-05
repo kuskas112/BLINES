@@ -15,6 +15,13 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
+        Modifier add10AttackDamageModifier = new Modifier(
+            ModifierType.Add,
+            ModifierTarget.AttackDamage,
+            20
+        );
+
+        Player.spells[0].Modifiers.Add(add10AttackDamageModifier);
         // basic attack on enemy
         Player.spells[0].Cast(battleContext);
     }

@@ -1,11 +1,10 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Fighter : MonoBehaviour
 {
-    public Spell[] spells =
-    {
-        new BasicAttack()
-    };
+    public List<Spell> spells = new();
     public PolygonFacade polygonFacade;
     public float Health = 100f;
     public GameObject PolygonObject;
@@ -13,6 +12,8 @@ public class Fighter : MonoBehaviour
     void Awake()
     {
         polygonFacade = new PolygonFacade(PolygonObject);
+        // У всех есть базовая атака
+        spells.Add(new BasicAttack());
     }
 
     public Polygon GetPolygon()

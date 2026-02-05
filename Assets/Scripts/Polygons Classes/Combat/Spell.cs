@@ -1,5 +1,6 @@
 using UnityEngine;
-using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public enum SpellType {Active, Passive, Consumable}
 public class Spell
@@ -7,7 +8,7 @@ public class Spell
     public string Name;
     public string Description;
     public SpellType Type;
-    public ModifierSO[] Modifiers = Array.Empty<ModifierSO>();
+    public List<Modifier> Modifiers = new();
 
     public Spell()
     {

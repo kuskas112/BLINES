@@ -1,12 +1,11 @@
 using UnityEngine;
-
 public class BasicAttack : Spell
 {
     public BasicAttack()
     {
         Name = "Basic Attack";
         Description = "Deals damage to the target based on angle count";
-        this.Type = SpellType.Active;
+        this.Type = SpellType.Active; 
     }
 
     public override void Cast(BattleContext context)
@@ -18,7 +17,10 @@ public class BasicAttack : Spell
         float damage = caster.GetPolygon().Angles;
         foreach (var modifier in Modifiers)
         {
-            damage = modifier.Apply(damage);
+            if(modifier.Target == ModifierTarget.AttackDamage)
+            {
+                damage = modifier.Apply(damage);
+            }
         }
 
         target.TakeDamage(damage);

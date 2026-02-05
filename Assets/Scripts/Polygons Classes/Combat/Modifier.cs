@@ -1,9 +1,13 @@
 using UnityEngine;
 
-
-[CreateAssetMenu(fileName = "NewModifier", menuName = "BLINES/Modifiers/Advanced Modifier")]
-public class ModifierSO : ScriptableObject
+public class Modifier
 {
+    public Modifier(ModifierType type, ModifierTarget target, float value)
+    {
+        Type = type;
+        Target = target;
+        Value = value;
+    }
     public ModifierType Type;
     public ModifierTarget Target;
     public float Value;
