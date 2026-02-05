@@ -1,15 +1,25 @@
 using UnityEngine;
+using System;
 
 public enum SpellType {Active, Passive, Consumable}
-public class Spell : MonoBehaviour
+public class Spell
 {
-    public string Name = "Spell";
-    public string Description = "Default Description";
-    public SpellType Type = SpellType.Passive;
-    public ModifierSO[] Modifiers;
+    public string Name;
+    public string Description;
+    public SpellType Type;
+    public ModifierSO[] Modifiers = Array.Empty<ModifierSO>();
 
-    public virtual void Cast()
+    public Spell()
     {
+        Name = "Spell";
+        Description = "Default Description";
+        Type = SpellType.Passive;
+    }
+
+    public virtual void Cast(BattleContext context)
+    {
+        #if UNITY_EDITOR
         Debug.Log("Casted " + Name);
+        #endif
     }    
 }
