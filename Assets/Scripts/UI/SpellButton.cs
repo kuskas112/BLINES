@@ -15,11 +15,16 @@ public class SpellButton : MonoBehaviour
         if(mainCamera == null) mainCamera = CameraManager.Camera;
         button.onClick.AddListener(OnClickListener);
         spellFacade = new ShapeFacade(spellObject);
+        
+    }
+
+    private void Start()
+    {
+        Vector3 newPos = GetButtonWorldPosition();
+        spellFacade.mover.Move(newPos, 1f);
     }
 
     public void OnClickListener(){
-        Vector3 newPos = GetButtonWorldPosition();
-        spellFacade.mover.Move(newPos, 1f);
         BattleManager.Instance.Player.spells[0].Cast(BattleManager.Instance.battleContext);
     }
 

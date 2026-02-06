@@ -1,12 +1,24 @@
 using UnityEngine;
+using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 
+public class Fighter1fEvent : UnityEvent<float> {}
 public class Fighter : MonoBehaviour
 {
+    public Fighter1fEvent onHealthChanged = new();
     public List<Spell> spells = new();
     public PolygonFacade polygonFacade;
-    public float Health = 100f;
+    private float _health = 100f;
+    public float Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            onHealthChanged.Invoke(_health);
+        }
+    }
     public GameObject PolygonObject;
 
     void Awake()
