@@ -2,9 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PolygonMover : MonoBehaviour
+public class Mover : MonoBehaviour
 {
-    public Polygon polygon;
     [HideInInspector]
     public bool IsMoving = false;
     public AnimationCurve MoveCurve = null;
@@ -21,11 +20,6 @@ public class PolygonMover : MonoBehaviour
     public PatrolCurveType patrolCurveType = PatrolCurveType.Linear;
     public Vector2[] patrolPoints;
     private Coroutine patrolCoroutine = null;
-
-    private void Awake()
-    {
-        polygon ??= GetComponent<Polygon>();    
-    }
 
     private void Start()
     {
@@ -94,7 +88,7 @@ public class PolygonMover : MonoBehaviour
         }
     }
 
-    public void MovePolygon(Vector2 targetPosition, float duration, AnimationCurve curve = null)
+    public void Move(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         if (!IsMoving)
         {
@@ -102,13 +96,13 @@ public class PolygonMover : MonoBehaviour
         }
     }
 
-    public void MovePolygonEaseOut(Vector2 targetPosition, float duration)
+    public void MoveEaseOut(Vector2 targetPosition, float duration)
     {
-        MovePolygon(targetPosition, duration, MoveCurve);
+        Move(targetPosition, duration, MoveCurve);
     }
-    public void MovePolygonLinear(Vector2 targetPosition, float duration)
+    public void MoveLinear(Vector2 targetPosition, float duration)
     {
-        MovePolygon(targetPosition, duration, LinearCurve);
+        Move(targetPosition, duration, LinearCurve);
     }
 
     // ==================== КОРУТИНЫ ====================
@@ -133,7 +127,7 @@ public class PolygonMover : MonoBehaviour
     private IEnumerator MoveCoroutine(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         IsMoving = true;
-        Vector2 startPosition = polygon.transform.position;
+        Vector2 startPosition = transform.position;
         float time = 0f;
         AnimationCurve usedCurve = curve ?? MoveCurve;
 
@@ -143,11 +137,11 @@ public class PolygonMover : MonoBehaviour
             float t = time / duration;
             
             float smoothT = usedCurve.Evaluate(t);
-            polygon.transform.position = Vector2.Lerp(startPosition, targetPosition, smoothT);
+            transform.position = Vector2.Lerp(startPosition, targetPosition, smoothT);
             yield return null;
         }
 
-        polygon.transform.position = targetPosition;
+        transform.position = targetPosition;
         IsMoving = false;
     }
 

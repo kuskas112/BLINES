@@ -2,7 +2,24 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-    private BattleContext battleContext;
+    private static BattleManager _instance;
+    public static BattleManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = Object.FindFirstObjectByType<BattleManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject("BattleManager");
+                    _instance = go.AddComponent<BattleManager>();
+                }
+            }
+            return _instance;
+        }
+    }
+    public BattleContext battleContext;
     public Fighter Player;
     public Fighter Enemy;
     void Awake()
@@ -15,14 +32,6 @@ public class BattleManager : MonoBehaviour
 
     void Start()
     {
-        Modifier add10AttackDamageModifier = new Modifier(
-            ModifierType.Add,
-            ModifierTarget.AttackDamage,
-            20
-        );
 
-        Player.spells[0].Modifiers.Add(add10AttackDamageModifier);
-        // basic attack on enemy
-        Player.spells[0].Cast(battleContext);
     }
 }

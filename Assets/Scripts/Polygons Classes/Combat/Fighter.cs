@@ -28,6 +28,7 @@ public class Fighter : MonoBehaviour
         #endif
         
         Health -= damage;
+        polygonFacade.polygonAnimator.StartBounceAnimation(0.2f);
         if (Health <= 0)
         {
             Die();
