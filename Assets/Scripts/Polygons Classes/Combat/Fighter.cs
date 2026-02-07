@@ -24,8 +24,6 @@ public class Fighter : MonoBehaviour
     void Awake()
     {
         polygonFacade = new PolygonFacade(PolygonObject);
-        // У всех есть базовая атака
-        spells.Add(new BasicAttack());
     }
 
     public Polygon GetPolygon()

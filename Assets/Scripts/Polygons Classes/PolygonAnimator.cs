@@ -101,8 +101,14 @@ public class PolygonAnimator : BasicObjectAnimator
     private IEnumerator BounceAnimation(float bounceHeight = 0.3f, float bounceDuration = 0.25f, float speed = 1f)
     {
         onBounce.Invoke(BOUNCE_ANIMATION_KEY, bounceDuration);
+        // Если во время анимации Bounce была включена Pulse, 
+        // то она может мешать визуальному эффекту, постоянно изменяя радиус
+        bool wasPulsePlaying = IsAnimationRunning(PULSE_ANIMATION_KEY);
+        if (wasPulsePlaying)
+        {
+            StopAnimation(PULSE_ANIMATION_KEY);
+        }
         float time = 0f;
-        float startRadius = polygon.Radius;
         float invDuration = 1f / bounceDuration; // оказывается умножение быстрее деления в 3-6 раз
         while (time < bounceDuration)
         {
@@ -116,8 +122,13 @@ public class PolygonAnimator : BasicObjectAnimator
                         Mathf.Pow(1 - t, 2) * // Затухание
                         bounceHeight;
             
-            polygon.Radius = startRadius * (1 + bounce);
+            polygon.Radius = baseRadius * (1 + bounce);
             yield return null;
+        }
+        polygon.Radius = baseRadius;
+        if (wasPulsePlaying)
+        {
+            StartPulseAnimation(pulseSpeed, pulseAmount);
         }
 
         StopBounceAnimation();
