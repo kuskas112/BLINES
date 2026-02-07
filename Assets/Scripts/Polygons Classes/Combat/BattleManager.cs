@@ -28,10 +28,19 @@ public class BattleManager : MonoBehaviour
             Player,
             Enemy
         );
+        for (int i = 0; i < 4; i++)
+        {
+            Player.spells.Add(
+                new BasicAttack
+                {
+                    Rareness = (SpellRareness)(i + 1)
+                }
+            );
+        }
     }
 
     void Start()
     {
-
+        
     }
 }
