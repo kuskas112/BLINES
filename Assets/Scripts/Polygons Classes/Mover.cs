@@ -127,7 +127,7 @@ public class Mover : MonoBehaviour
     private IEnumerator MoveCoroutine(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         IsMoving = true;
-        Vector2 startPosition = transform.position;
+        Vector3 startPosition = transform.position; // Сохраняем полный Vector3
         float time = 0f;
         AnimationCurve usedCurve = curve ?? MoveCurve;
 
@@ -137,11 +137,19 @@ public class Mover : MonoBehaviour
             float t = time / duration;
             
             float smoothT = usedCurve.Evaluate(t);
-            transform.position = Vector2.Lerp(startPosition, targetPosition, smoothT);
+            
+            // Создаем новый Vector3 с сохранением оригинального Z
+            Vector3 newPosition = Vector2.Lerp(startPosition, targetPosition, smoothT);
+            newPosition.z = startPosition.z; // Сохраняем оригинальный Z
+            transform.position = newPosition;
+            
             yield return null;
         }
 
-        transform.position = targetPosition;
+        // Финальная позиция тоже с сохранением Z
+        Vector3 finalPosition = new Vector3(targetPosition.x, targetPosition.y, startPosition.z);
+        transform.position = finalPosition;
+        
         IsMoving = false;
     }
 

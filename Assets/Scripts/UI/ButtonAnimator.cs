@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public class ButtonAnimator : BasicObjectAnimator
 {
     public const string GLOW_TOGGLE_ANIMATION_KEY = "glowToggle";
+    public const string CHANGE_SHAPE_ANIMATION_KEY = "changeShape";
+
     private SpellButton spellButton; 
+    private RectTransform buttonRect;
 
     [Header("Glow Animation Settings")]
     public float startGlow = 1f;
@@ -15,6 +18,7 @@ public class ButtonAnimator : BasicObjectAnimator
     private void Awake()
     {
         spellButton = GetComponent<SpellButton>();
+        buttonRect = GetComponent<RectTransform>();
     }
 
     private void Start()
@@ -57,7 +61,6 @@ public class ButtonAnimator : BasicObjectAnimator
         spellButton.OutlineColor = baseColor; // Убедиться, что цвет сброшен в исходное состояние
         StopGlowToggleAnimation();
     }
-
     public void StartGlowToggleAnimation(float maxGlow = 0.5f, float duration = 1f)
     {
         Coroutine animationCoroutine = StartCoroutine(GlowToggleAnimation(maxGlow, duration));
@@ -66,5 +69,32 @@ public class ButtonAnimator : BasicObjectAnimator
     public void StopGlowToggleAnimation()
     {
         StopAnimation(GLOW_TOGGLE_ANIMATION_KEY);
+    }
+
+
+    public IEnumerator ChangeShapeAnimation(Vector2 targetSize, float duration = 1f)
+    {
+        float time = 0f;
+        float invDuration = 1 / duration;
+        Vector2 startSize = buttonRect.sizeDelta;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time * invDuration;
+            float smoothT = Mathf.SmoothStep(0, 1, t);
+            buttonRect.sizeDelta = Vector2.Lerp(startSize, targetSize, smoothT);
+            yield return null;
+        }
+        buttonRect.sizeDelta = targetSize; // Убедиться, что размер сброшен в целевое состояние
+        StopChangeShapeAnimation();
+    }
+    public void StartChangeShapeAnimation(Vector2 targetSize, float duration = 1f)
+    {
+        Coroutine animationCoroutine = StartCoroutine(ChangeShapeAnimation(targetSize, duration));
+        StartAnimation(CHANGE_SHAPE_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopChangeShapeAnimation()
+    {
+        StopAnimation(CHANGE_SHAPE_ANIMATION_KEY);
     }
 }

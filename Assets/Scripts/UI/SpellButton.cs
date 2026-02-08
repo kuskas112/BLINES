@@ -13,7 +13,7 @@ public class SpellButton : MonoBehaviour
     // Spell получается через метод GetSpell()
     [SerializeField] private int spellIndex = 0;
     public bool Clickable = true;
-    private ShapeFacade spellFacade;
+    private ShapeFacade shapeFacade;
     private Camera mainCamera;
     private RectTransform buttonRect;
     private Image image;
@@ -43,7 +43,7 @@ public class SpellButton : MonoBehaviour
 
     private void SetShapeFacade()
     {
-        spellFacade = new ShapeFacade(spellObject);
+        shapeFacade = new ShapeFacade(spellObject);
     }
 
     private void Start()
@@ -54,12 +54,12 @@ public class SpellButton : MonoBehaviour
     public void MoveObjectInsideButton()
     {
         Vector3 newPos = GetButtonWorldPosition();
-        if(spellFacade != null)spellFacade.mover.Move(newPos, 1f);
+        if(shapeFacade != null)shapeFacade.mover.Move(newPos, 1f);
     }
 
     public void OnClickListener(){
         // А как ты собрался кастовать если нету объекта спелла
-        if(spellFacade != null && BattleManager.Instance.IsPlayerTurn() && Clickable)
+        if(shapeFacade != null && BattleManager.Instance.IsPlayerTurn() && Clickable)
         {
             BattleManager.Instance.CastPlayerSpell(spellIndex);
         }
