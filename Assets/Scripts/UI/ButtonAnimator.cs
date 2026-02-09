@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,8 +8,9 @@ public class ButtonAnimator : BasicObjectAnimator
     public const string GLOW_TOGGLE_ANIMATION_KEY = "glowToggle";
     public const string CHANGE_SHAPE_ANIMATION_KEY = "changeShape";
 
-    private SpellButton spellButton; 
+    private MaterialSetter buttonMaterialSetter; 
     private RectTransform buttonRect;
+    private Color baseColor;
 
     [Header("Glow Animation Settings")]
     public float startGlow = 1f;
@@ -17,13 +19,13 @@ public class ButtonAnimator : BasicObjectAnimator
 
     private void Awake()
     {
-        spellButton = GetComponent<SpellButton>();
+        buttonMaterialSetter = GetComponent<MaterialSetter>();
         buttonRect = GetComponent<RectTransform>();
     }
 
     private void Start()
     {
-        spellButton.button.onClick.AddListener(OnButtonClicked);
+        GetComponent<Button>().onClick.AddListener(OnButtonClicked);
     }
 
     private void OnButtonClicked()
@@ -39,13 +41,13 @@ public class ButtonAnimator : BasicObjectAnimator
         float time = 0f;
         //float startGlow = 1f;
         float invDuration = 1 / duration;
-        Color baseColor = spellButton.OutlineColor;
+        Color localBaseColor = buttonMaterialSetter.EdgeNeonColor;
         while (time < duration / 2)
         {
             time += Time.deltaTime;
             float t = time * invDuration;
             float smoothT = Mathf.SmoothStep(startGlow, maxGlow, t);
-            spellButton.OutlineColor = baseColor * smoothT;
+            buttonMaterialSetter.EdgeNeonColor = localBaseColor * smoothT;
             yield return null;
         }
 
@@ -54,15 +56,16 @@ public class ButtonAnimator : BasicObjectAnimator
             time += Time.deltaTime;
             float t = time * invDuration;
             float smoothT = Mathf.SmoothStep(maxGlow, startGlow, t);
-            spellButton.OutlineColor = baseColor * smoothT;
+            buttonMaterialSetter.EdgeNeonColor = localBaseColor * smoothT;
             yield return null;
         }
 
-        spellButton.OutlineColor = baseColor; // Убедиться, что цвет сброшен в исходное состояние
+        buttonMaterialSetter.EdgeNeonColor = baseColor; // Убедиться, что цвет сброшен в исходное состояние
         StopGlowToggleAnimation();
     }
     public void StartGlowToggleAnimation(float maxGlow = 0.5f, float duration = 1f)
     {
+        if (baseColor == Color.clear) baseColor = buttonMaterialSetter.EdgeNeonColor;
         Coroutine animationCoroutine = StartCoroutine(GlowToggleAnimation(maxGlow, duration));
         StartAnimation(GLOW_TOGGLE_ANIMATION_KEY, animationCoroutine);
     }
@@ -96,5 +99,6 @@ public class ButtonAnimator : BasicObjectAnimator
     public void StopChangeShapeAnimation()
     {
         StopAnimation(CHANGE_SHAPE_ANIMATION_KEY);
+        buttonMaterialSetter.EdgeNeonColor = baseColor;
     }
 }

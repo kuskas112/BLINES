@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3052534940720770407}
   - component: {fileID: 7427846461915735546}
   - component: {fileID: 8967579063836634457}
+  - component: {fileID: 1774819997092581137}
   - component: {fileID: 4392255641155207597}
   - component: {fileID: 6969472865169338190}
   - component: {fileID: 4586489589068585931}
@@ -79,6 +80,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1774819997092581137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362787202999632209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cbd6020928f8dd42ad09629d2067e81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonMaterialSetter
+  _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
+  _edgeMaterial: {fileID: 0}
+  RandomizeColorOnWake: 0
+  image: {fileID: 8967579063836634457}
 --- !u!114 &4392255641155207597
 MonoBehaviour:
   m_ObjectHideFlags: 0

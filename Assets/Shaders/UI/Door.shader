@@ -80,7 +80,7 @@ Shader "Custom/UI/Door"
                 // Плавный переход для антиалиасинга (опционально)
                 outlineMask = smoothstep(0, _SmoothWidth, outlineMask);
                 
-                return outlineMask * _GlowIntensity * _NeonColor + pulse * 0.1;
+                return outlineMask * _GlowIntensity * _NeonColor;
             }
             ENDHLSL
         }

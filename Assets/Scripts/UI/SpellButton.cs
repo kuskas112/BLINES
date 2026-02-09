@@ -17,17 +17,6 @@ public class SpellButton : MonoBehaviour
     private Camera mainCamera;
     private RectTransform buttonRect;
     private Image image;
-    private Color _outlineColor;
-    [SerializeField]
-    public Color OutlineColor
-    {
-        get { return _outlineColor; }
-        set 
-        {
-            _outlineColor = value; 
-            UpdateOutlineColor();
-        }
-    }
 
 
     private void Awake(){
@@ -38,17 +27,11 @@ public class SpellButton : MonoBehaviour
         if(spellObject != null) SetShapeFacade();
         image = button.GetComponent<Image>();
         image.material = new Material(image.material);
-        OutlineColor = Color.grey; // Изначальный цвет контура
     }
 
     private void SetShapeFacade()
     {
         shapeFacade = new ShapeFacade(spellObject);
-    }
-
-    private void Start()
-    {
-        GetColorFromSpellRareness();
     }
 
     public void MoveObjectInsideButton()
@@ -70,11 +53,6 @@ public class SpellButton : MonoBehaviour
         return BattleManager.Instance.GetPlayerSpell(spellIndex);
     }
 
-    private void UpdateOutlineColor()
-    {
-        image.material.SetColor("_NeonColor", OutlineColor);
-    }
-
     Vector3 GetButtonWorldPosition()
     {
         Vector3 screenPos = buttonRect.position;
@@ -85,7 +63,7 @@ public class SpellButton : MonoBehaviour
 
     private void GetColorFromSpellRareness()
     {
-        switch (GetSpell().Rareness)
+/*        switch (GetSpell().Rareness)
         {
             case SpellRareness.Default:
                 OutlineColor = Color.grey;
@@ -99,6 +77,6 @@ public class SpellButton : MonoBehaviour
             case SpellRareness.Legendary:
                 OutlineColor = Color.yellow;
                 break;
-        }
+        }*/
     }
 }
