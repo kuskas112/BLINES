@@ -6,13 +6,13 @@ public class PolygonFacade
     public Polygon polygon;
     public PolygonAnimator polygonAnimator;
     public Mover mover;
-    public MaterialSetter materialSetter;
+    public PolygonMaterialSetter materialSetter;
 
     public PolygonFacade(GameObject polygonObject)
     {
         polygon = polygonObject.GetComponent<Polygon>();
         polygonAnimator = polygonObject.GetComponent<PolygonAnimator>();
         mover = polygonObject.gameObject.GetComponent<Mover>();
-        materialSetter = polygonObject.GetComponent<MaterialSetter>();
+        materialSetter = polygonObject.GetComponent<PolygonMaterialSetter>();
     }
 }

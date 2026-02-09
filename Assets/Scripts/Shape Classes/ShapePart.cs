@@ -6,12 +6,12 @@ public class ShapePart : MonoBehaviour
 {
     public SpriteShapeRenderer spriteShapeRenderer;
     public SpriteShapeController spriteShapeController;
-    public MaterialSetter materialSetter;
+    public PolygonMaterialSetter materialSetter;
     void Awake()
     {
         spriteShapeRenderer ??= GetComponent<SpriteShapeRenderer>();
         spriteShapeController ??= GetComponent<SpriteShapeController>();
-        materialSetter ??= GetComponent<MaterialSetter>();
+        materialSetter ??= GetComponent<PolygonMaterialSetter>();
     }
 
     private void OnValidate()

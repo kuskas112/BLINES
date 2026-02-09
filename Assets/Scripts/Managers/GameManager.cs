@@ -6,13 +6,13 @@ public class GameManager : MonoBehaviour
     private GameObject polygonObject;
     private Polygon polygon;
     private PolygonAnimator polygonAnimator;
-    private MaterialSetter materialSetter;
+    private PolygonMaterialSetter materialSetter;
     void Start()
     {
         polygonObject = GameObject.Find("MorphTesterPolygon");
         polygon = polygonObject?.GetComponent<Polygon>();
         polygonAnimator = polygonObject?.GetComponent<PolygonAnimator>();
-        materialSetter = polygonObject?.GetComponent<MaterialSetter>();
+        materialSetter = polygonObject?.GetComponent<PolygonMaterialSetter>();
     }
 
     // Update is called once per frame
