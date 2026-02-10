@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class ShapeFacade
+public class ShapeFacade : MonoBehaviour
 {
-    public Shape shape;
-    public ShapeAnimator animator;
-    public Mover mover;
+    [HideInInspector] public Shape shape;
+    [HideInInspector] public ShapeAnimator animator;
+    [HideInInspector] public Mover mover;
 
-    public ShapeFacade(GameObject shapeObject)
+    private void Awake()
     {
-        shape = shapeObject.GetComponent<Shape>();
-        animator = shapeObject.GetComponent<ShapeAnimator>();
-        mover = shapeObject.gameObject.GetComponent<Mover>();
+        shape    = GetComponent<Shape>();
+        animator = GetComponent<ShapeAnimator>();
+        mover    = GetComponent<Mover>();
     }
 }

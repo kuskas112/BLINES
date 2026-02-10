@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 319330831}
   - component: {fileID: 319330830}
   - component: {fileID: 319330829}
-  - component: {fileID: 319330832}
+  - component: {fileID: 319330834}
   - component: {fileID: 319330833}
   m_Layer: 5
   m_Name: Door
@@ -242,22 +242,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 319330827}
   m_CullTransparentMesh: 1
---- !u!114 &319330832
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 319330827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cbd6020928f8dd42ad09629d2067e81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorMaterialSetter
-  _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
-  _edgeMaterial: {fileID: 0}
-  RandomizeColorOnWake: 1
-  image: {fileID: 319330830}
 --- !u!114 &319330833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +257,22 @@ MonoBehaviour:
   startGlow: 1
   maxGlow: 1.5
   duration: 0.2
+--- !u!114 &319330834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319330827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad8df900ba127f468a078e4b8a30ebc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorMaterialSetter
+  _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
+  _edgeMaterial: {fileID: 0}
+  RandomizeColorOnWake: 0
+  image: {fileID: 319330830}
 --- !u!1 &375232351
 GameObject:
   m_ObjectHideFlags: 0

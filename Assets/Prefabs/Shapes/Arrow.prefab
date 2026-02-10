@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4792274192385987647}
   - component: {fileID: 7020905180229354690}
   - component: {fileID: 7716123998920203540}
+  - component: {fileID: 6472194098425473607}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -118,6 +119,21 @@ MonoBehaviour:
   patrolPointDuration: 1.5
   patrolCurveType: 0
   patrolPoints: []
+--- !u!114 &6472194098425473607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763513317976832808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14189e62e88bdf4789650abe54d7b99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShapeFacade
+  shape: {fileID: 0}
+  animator: {fileID: 0}
+  mover: {fileID: 0}
 --- !u!1 &2697620909884266350
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,10 +315,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3cc04f944454f429fadddbf5640f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaterialSetter
-  shRenderer: {fileID: 0}
-  RandomizeColorOnWake: 0
   _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
   _edgeMaterial: {fileID: 0}
+  RandomizeColorOnWake: 0
+  shRenderer: {fileID: 0}
 --- !u!1 &3879238720707748412
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,10 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3cc04f944454f429fadddbf5640f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaterialSetter
-  shRenderer: {fileID: 0}
-  RandomizeColorOnWake: 0
   _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
   _edgeMaterial: {fileID: 0}
+  RandomizeColorOnWake: 0
+  shRenderer: {fileID: 0}
 --- !u!1 &4988228656618998324
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3cc04f944454f429fadddbf5640f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaterialSetter
-  shRenderer: {fileID: 0}
-  RandomizeColorOnWake: 0
   _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
   _edgeMaterial: {fileID: 0}
+  RandomizeColorOnWake: 0
+  shRenderer: {fileID: 0}

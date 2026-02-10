@@ -1,18 +1,18 @@
 using UnityEngine;
 
 // Класс, аггрегирующий все компоненты объекта полигона
-public class PolygonFacade
+public class PolygonFacade : MonoBehaviour
 {
-    public Polygon polygon;
-    public PolygonAnimator polygonAnimator;
-    public Mover mover;
-    public PolygonMaterialSetter materialSetter;
+    [HideInInspector] public Polygon polygon;
+    [HideInInspector] public PolygonAnimator animator;
+    [HideInInspector] public Mover mover;
+    [HideInInspector] public PolygonMaterialSetter materialSetter;
 
-    public PolygonFacade(GameObject polygonObject)
+    private void Awake()
     {
-        polygon = polygonObject.GetComponent<Polygon>();
-        polygonAnimator = polygonObject.GetComponent<PolygonAnimator>();
-        mover = polygonObject.gameObject.GetComponent<Mover>();
-        materialSetter = polygonObject.GetComponent<PolygonMaterialSetter>();
+        polygon         = GetComponent<Polygon>();
+        animator = GetComponent<PolygonAnimator>();
+        mover           = GetComponent<Mover>();
+        materialSetter  = GetComponent<PolygonMaterialSetter>();
     }
 }

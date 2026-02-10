@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6969472865169338190}
   - component: {fileID: 4586489589068585931}
   - component: {fileID: 485421747968004356}
+  - component: {fileID: 7322405797986843860}
   m_Layer: 5
   m_Name: SpellButton
   m_TagString: Untagged
@@ -212,3 +213,19 @@ MonoBehaviour:
   startGlow: 1
   maxGlow: 1.5
   duration: 0.2
+--- !u!114 &7322405797986843860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4362787202999632209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1214e0506bd07429b66717c3ea079e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpellButtonFacade
+  materialSetter: {fileID: 0}
+  animator: {fileID: 0}
+  mover: {fileID: 0}
+  spellButton: {fileID: 0}

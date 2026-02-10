@@ -23,7 +23,7 @@ public class Fighter : MonoBehaviour
 
     void Awake()
     {
-        polygonFacade = new PolygonFacade(PolygonObject);
+        polygonFacade = PolygonObject.GetComponent<PolygonFacade>();
     }
 
     public Polygon GetPolygon()
@@ -38,7 +38,7 @@ public class Fighter : MonoBehaviour
         #endif
         
         Health -= damage;
-        polygonFacade.polygonAnimator.StartBounceAnimation(0.2f);
+        polygonFacade.animator.StartBounceAnimation(0.2f);
         if (Health <= 0)
         {
             Die();

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpellButton : MonoBehaviour
+public class SpellButtonBehaviour : MonoBehaviour
 {
     public Button button;
     public GameObject spellObject;
@@ -16,7 +16,6 @@ public class SpellButton : MonoBehaviour
     private ShapeFacade shapeFacade;
     private Camera mainCamera;
     private RectTransform buttonRect;
-    private Image image;
 
 
     private void Awake(){
@@ -25,13 +24,11 @@ public class SpellButton : MonoBehaviour
         if(mainCamera == null) mainCamera = CameraManager.Camera;
         button.onClick.AddListener(OnClickListener);
         if(spellObject != null) SetShapeFacade();
-        image = button.GetComponent<Image>();
-        image.material = new Material(image.material);
     }
 
     private void SetShapeFacade()
     {
-        shapeFacade = new ShapeFacade(spellObject);
+        shapeFacade = spellObject.GetComponent<ShapeFacade>();
     }
 
     public void MoveObjectInsideButton()

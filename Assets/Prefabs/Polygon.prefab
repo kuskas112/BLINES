@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2290238774974978699}
   - component: {fileID: 6631770076537988699}
   - component: {fileID: 2814522170655053480}
+  - component: {fileID: 1528719866921172940}
   - component: {fileID: 645156467422486360}
   - component: {fileID: 5736173334236650060}
   - component: {fileID: 3949544764620656856}
@@ -124,7 +125,7 @@ MonoBehaviour:
       height: 1
       spriteIndex: 0
       corner: 1
-      m_CornerMode: 2
+      m_CornerMode: 1
     - position: {x: 0.49999997, y: 0.86602545, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
@@ -132,7 +133,7 @@ MonoBehaviour:
       height: 1
       spriteIndex: 0
       corner: 1
-      m_CornerMode: 2
+      m_CornerMode: 1
     - position: {x: -0.50000006, y: 0.8660254, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
@@ -140,7 +141,7 @@ MonoBehaviour:
       height: 1
       spriteIndex: 0
       corner: 1
-      m_CornerMode: 2
+      m_CornerMode: 1
     - position: {x: -1, y: -0.00000008742278, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
@@ -148,7 +149,7 @@ MonoBehaviour:
       height: 1
       spriteIndex: 0
       corner: 1
-      m_CornerMode: 2
+      m_CornerMode: 1
     - position: {x: -0.4999999, y: -0.86602545, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
@@ -156,7 +157,7 @@ MonoBehaviour:
       height: 1
       spriteIndex: 0
       corner: 1
-      m_CornerMode: 2
+      m_CornerMode: 1
     - position: {x: 0.4999999, y: -0.86602545, z: 0}
       leftTangent: {x: 0, y: 0, z: 0}
       rightTangent: {x: 0, y: 0, z: 0}
@@ -164,7 +165,7 @@ MonoBehaviour:
       height: 1
       spriteIndex: 0
       corner: 1
-      m_CornerMode: 2
+      m_CornerMode: 1
   m_SpriteShape: {fileID: 11400000, guid: f24cddf7c09a6442abbce710a6fd7397, type: 2}
   m_FillPixelPerUnit: 255
   m_StretchTiling: 1
@@ -205,6 +206,22 @@ MonoBehaviour:
   cornerMode: 2
   shController: {fileID: 6631770076537988699}
   shRenderer: {fileID: 2290238774974978699}
+--- !u!114 &1528719866921172940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3652482289858753160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b17bb1218fa09a646a4c6a175094a640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PolygonFacade
+  polygon: {fileID: 0}
+  animator: {fileID: 0}
+  mover: {fileID: 0}
+  materialSetter: {fileID: 0}
 --- !u!114 &645156467422486360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653fa92881995974293320e37552a1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PolygonMover
-  polygon: {fileID: 2814522170655053480}
   IsMoving: 1
   MoveCurve:
     serializedVersion: 2
@@ -304,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea3cc04f944454f429fadddbf5640f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MaterialSetter
+  _edgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
+  _edgeMaterial: {fileID: 0}
+  RandomizeColorOnWake: 0
   shRenderer: {fileID: 2290238774974978699}
-  EdgeNeonColor: {r: 0, g: 0, b: 0, a: 0}
-  EdgeMaterial: {fileID: 2100000, guid: 5fa79f67298f88741a46805e30c75589, type: 2}

@@ -8,9 +8,9 @@ public class ButtonAnimator : BasicObjectAnimator
     public const string GLOW_TOGGLE_ANIMATION_KEY = "glowToggle";
     public const string CHANGE_SHAPE_ANIMATION_KEY = "changeShape";
 
-    private MaterialSetter buttonMaterialSetter; 
-    private RectTransform buttonRect;
-    private Color baseColor;
+    protected MaterialSetter buttonMaterialSetter;
+    protected RectTransform buttonRect;
+    protected Color baseColor;
 
     [Header("Glow Animation Settings")]
     public float startGlow = 1f;
@@ -28,7 +28,7 @@ public class ButtonAnimator : BasicObjectAnimator
         GetComponent<Button>().onClick.AddListener(OnButtonClicked);
     }
 
-    private void OnButtonClicked()
+    protected virtual void OnButtonClicked()
     {
         if(BattleManager.Instance.IsPlayerTurn())
         {
