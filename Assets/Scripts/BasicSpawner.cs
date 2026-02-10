@@ -1,16 +1,32 @@
 using UnityEngine;
 
-public class BasicSpawner : MonoBehaviour
+public abstract class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] protected T prefab;
+    [SerializeField] protected Transform spawnParent;
+
+    public virtual T Spawn(Vector3 position, Quaternion rotation)
     {
-        
+        if (prefab == null)
+        {
+            Debug.LogError("Prefab is not assigned!");
+            return null;
+        }
+
+        T instance = Instantiate(prefab, position, rotation);
+
+        if (spawnParent != null)
+        {
+            SetParent(instance, spawnParent);
+        }
+
+        OnSpawned(instance);
+        return instance;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    protected virtual void OnSpawned(T instance) { }
+    protected virtual void SetParent(T instance, Transform parent) {
+        // Базовая реализация для 3D объектов
+        instance.transform.SetParent(parent);
     }
 }
