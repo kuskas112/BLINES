@@ -20,13 +20,8 @@ public class DoorBehaviour : MonoBehaviour
     private void OnButtonClicked()
     {
         // Отрабатывает 1 раз
-        if (isCliked)
-        {
-            Debug.Log("Door already clicked");
-            return;
-        }
+        if (isCliked) return;
         isCliked = true;
-        Debug.Log("Door pressed");
         float delay = animator.doorDisappearDuration;
         StartCoroutine(SpawnCoroutine(3, delay));
     }
@@ -35,16 +30,12 @@ public class DoorBehaviour : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         float screenWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
-        Debug.Log("MAIN SIZE " + Camera.main.orthographicSize);
-        Debug.Log("ASPECT " + Camera.main.aspect);
 
         // Рассчитываем доступную ширину для кнопок (с отступами по краям)
         const float margin = 0.1f; // отступ в мировых
         float availableWidth = screenWidth - 2 * margin;
         
         float ratio = Screen.width / screenWidth;
-        Debug.Log("RATIO " + ratio);
-        Debug.Log("SCREEN WIDTH " + Screen.width);
 
         float buttonWidth = availableWidth / buttonCount;
         float buttonWidthPixel = buttonWidth * ratio;
@@ -56,7 +47,6 @@ public class DoorBehaviour : MonoBehaviour
             // Рассчитываем позицию X для текущей кнопки
             // Центрируем кнопки относительно экрана
             float xPos = -availableWidth / 2f + margin + buttonWidth * (i + 0.5f);
-            Debug.Log("XPOS " +  xPos);
 
             Vector3 position = new Vector3(xPos, 0f, 0f); // y = 0, как требуется
 
