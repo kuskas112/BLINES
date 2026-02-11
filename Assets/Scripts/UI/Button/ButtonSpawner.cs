@@ -1,10 +1,11 @@
 using UnityEngine;
 
-public class ButtonSpawner : BasicSpawner<ButtonFacade>
+public abstract class ButtonSpawner<T> : BasicSpawner<T> where T : ButtonFacade
 {
-    public override ButtonFacade Spawn(Vector3 position, Quaternion rotation)
+    public override T Spawn(Vector3 position, Quaternion rotation)
     {
-        ButtonFacade instance = base.Spawn(position, rotation);
+        T instance = base.Spawn(position, rotation);
+        // Изменения в позиции для UI элементов
         instance.gameObject.transform.localScale = Vector3.one;
         if (instance.TryGetComponent<RectTransform>(out var rectTransform))
         {

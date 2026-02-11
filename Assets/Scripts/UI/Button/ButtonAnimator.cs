@@ -25,6 +25,7 @@ public class ButtonAnimator : BasicObjectAnimator
 
     private void Start()
     {
+        baseColor = buttonMaterialSetter.EdgeNeonColor;
         GetComponent<Button>().onClick.AddListener(OnButtonClicked);
     }
 
