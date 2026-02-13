@@ -46,7 +46,8 @@ public class DoorBehaviour : MonoBehaviour
         {
             // Рассчитываем позицию X для текущей кнопки
             // Центрируем кнопки относительно экрана
-            float xPos = -availableWidth / 2f + margin + buttonWidth * (i + 0.5f);
+            float xPos = -availableWidth / 2f + buttonWidth * (i + 0.5f);
+
 
             Vector3 position = new Vector3(xPos, 0f, 0f); // y = 0, как требуется
 
