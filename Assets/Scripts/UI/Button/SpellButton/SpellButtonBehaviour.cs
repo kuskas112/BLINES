@@ -34,7 +34,13 @@ public class SpellButtonBehaviour : MonoBehaviour
     public void MoveObjectInsideButton()
     {
         Vector3 newPos = GetButtonWorldPosition();
-        if(shapeFacade != null)shapeFacade.mover.Move(newPos, 1f);
+        if(shapeFacade != null)shapeFacade.mover.SetPosition(newPos);
+    }
+
+    public void MoveObjectInsideButtonSmooth()
+    {
+        Vector3 newPos = GetButtonWorldPosition();
+        if (shapeFacade != null) shapeFacade.mover.Move(newPos, 1f);
     }
 
     public void OnClickListener(){

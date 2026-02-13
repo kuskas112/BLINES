@@ -104,6 +104,10 @@ public class Mover : MonoBehaviour
     {
         Move(targetPosition, duration, LinearCurve);
     }
+    public void SetPosition(Vector2 position)
+    {
+        transform.position = position;
+    }
 
     // ==================== КОРУТИНЫ ====================
 
