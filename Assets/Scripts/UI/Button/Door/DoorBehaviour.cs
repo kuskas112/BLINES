@@ -1,6 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class DoorBehaviour : MonoBehaviour
 {
@@ -8,6 +10,8 @@ public class DoorBehaviour : MonoBehaviour
     private SpellButtonSpawner spellButtonSpawner;
     private DoorAnimator animator;
     private bool isCliked = false;
+    // —обытие, которое вызываетс€ после спавна
+    public UnityEvent<List<SpellButtonFacade>> OnSpellButtonsSpawned;
 
     private void Awake()
     {
@@ -29,18 +33,16 @@ public class DoorBehaviour : MonoBehaviour
     private IEnumerator SpawnCoroutine(int buttonCount, float delay = 1f)
     {
         yield return new WaitForSeconds(delay);
-        float screenWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
+        float screenWidth = CameraManager.ScreenWidthWorld;
 
         // –ассчитываем доступную ширину дл€ кнопок (с отступами по кра€м)
         const float margin = 0.1f; // отступ в мировых
         float availableWidth = screenWidth - 2 * margin;
-        
-        float ratio = Screen.width / screenWidth;
 
         float buttonWidth = availableWidth / buttonCount;
-        float buttonWidthPixel = buttonWidth * ratio;
+        float buttonWidthPixel = CameraManager.WorldXToPixels(buttonWidth);
         float duration = 1f;
-
+        List<SpellButtonFacade> instances = new(); 
 
         for (int i = 0; i < buttonCount; i++)
         {
@@ -62,7 +64,10 @@ public class DoorBehaviour : MonoBehaviour
             Vector2 targetSize = new Vector2(buttonWidthPixel, 500f); // пример: высота 500
             facade.animator.StartChangeShapeAnimation(targetSize, duration);
             facade.mover.MoveEaseOut(position, duration);
+            instances.Add(facade);
         }
+
+        OnSpellButtonsSpawned.Invoke(instances);
         yield return new WaitForSeconds(duration);
         Destroy(gameObject);
     }
