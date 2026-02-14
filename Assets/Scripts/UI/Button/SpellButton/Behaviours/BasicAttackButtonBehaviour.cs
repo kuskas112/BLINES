@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BasicAttackButtonBehaviour : SpellButtonBehaviour
+public class BasicAttackBehaviour : SpellButtonBehaviour
 {
     void Start()
     {

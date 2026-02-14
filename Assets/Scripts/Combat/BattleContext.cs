@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BattleContext
 {
@@ -7,6 +8,9 @@ public class BattleContext
         Player = player;
         Enemy = enemy;
     }
+    public UnityEvent<int> OnTurnEnded = new();
+    public UnityEvent<int> OnTurnStarted = new();
+
     public Fighter Player;
     public Fighter Enemy;
     public bool IsPlayerTurn = true;
@@ -14,7 +18,9 @@ public class BattleContext
 
     public void NextTurn()
     {
+        OnTurnStarted.Invoke(Round);
         Round++;
         IsPlayerTurn = !IsPlayerTurn;
+        OnTurnEnded.Invoke(Round);
     }
 }

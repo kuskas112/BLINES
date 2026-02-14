@@ -7,6 +7,7 @@ public class BasicObjectAnimator : MonoBehaviour
     public const string ROTATION_ANIMATION_KEY = "rotation";
     public const string SHAKE_ANIMATION_KEY = "shake";
     public const string ROTATION_CHANGE_ANIMATION_KEY = "rotationChange";
+    public const string SCALE_TO_ANIMATION_KEY = "ScaleTo";
 
     protected Dictionary<string, Coroutine> animationCoroutines = new();
 
@@ -56,6 +57,22 @@ public class BasicObjectAnimator : MonoBehaviour
             transform.Rotate(Vector3.forward, speed * Time.deltaTime);
             yield return null;
         }
+    }
+
+    public IEnumerator ScaleTo(Transform target, Vector3 targetScale, float duration)
+    {
+        Vector3 startScale = target.localScale;
+        float elapsed = 0f;
+        float invDuration = 1 / duration;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed * invDuration;
+            float smoothT = Mathf.SmoothStep(0, 1, t);
+            target.localScale = Vector3.Lerp(startScale, targetScale, smoothT);
+            yield return null;
+        }
+        target.localScale = targetScale;
     }
 
     public IEnumerator ShakeAnimation(Transform transform, float speed = 1f, float shakeOffset = 50f)
@@ -118,6 +135,16 @@ public class BasicObjectAnimator : MonoBehaviour
     public void StopRotationChangeAnimation()
     {
         StopAnimation(ROTATION_CHANGE_ANIMATION_KEY);
+    }
+
+    public void StartScaleTo(Transform target, Vector3 targetScale, float duration)
+    {
+        Coroutine animationCoroutine = StartCoroutine(ScaleTo(target, targetScale, duration));
+        StartAnimation(SCALE_TO_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopScaleTo()
+    {
+        StopAnimation(SCALE_TO_ANIMATION_KEY);
     }
 
 }

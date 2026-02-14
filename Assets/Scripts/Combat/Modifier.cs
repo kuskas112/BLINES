@@ -35,4 +35,5 @@ public enum ModifierTarget
     AttackDamage,
     SelfHealth,
     TargetHealth,
+    HealingAmount,
 }

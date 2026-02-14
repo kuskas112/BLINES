@@ -78,6 +78,12 @@ public class DoorBehaviour : MonoBehaviour
 
             Vector2 targetSize = new Vector2(buttonWidthPixel, 500f); // пример: высота 500
             facade.animator.StartChangeShapeAnimation(targetSize, duration);
+
+            Transform objectTransform = facade.behaviour.spellObject.transform;
+            Vector3 targetScale = objectTransform.localScale; // сохраняем начальный масштаб
+            objectTransform.localScale = Vector3.zero; // начинаем с нулевого масштаба
+
+            facade.animator.StartScaleTo(objectTransform, targetScale, duration);
             facade.mover.MoveEaseOut(position, duration);
             instances.Add(facade);
         }
