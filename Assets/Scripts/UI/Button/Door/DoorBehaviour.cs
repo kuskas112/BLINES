@@ -20,7 +20,8 @@ public class DoorBehaviour : MonoBehaviour
         int prefabsCount = 3;
         for (int i = 0; i < prefabsCount; i++)
         {
-            prefabs.Add(GetRandomPrefab());
+            SpellButtonFacade facade = GetRandomPrefab();
+            prefabs.Add(facade);
         }
     }
 
@@ -36,7 +37,7 @@ public class DoorBehaviour : MonoBehaviour
 
     private SpellButtonFacade GetRandomPrefab()
     {
-        return PrefabSelector<SpellButtonFacade>.Instance.GetRandomPrefab();
+        return SpellButtonPrefabSelector.Instance.GetRandomPrefab();
     }
 
 
@@ -44,8 +45,8 @@ public class DoorBehaviour : MonoBehaviour
 
     private IEnumerator SpawnCoroutine(float delay = 1f)
     {
+
         int buttonCount = prefabs.Count;
-        yield return new WaitForSeconds(delay);
         float screenWidth = Camera.main.orthographicSize * Camera.main.aspect * 2f;
 
         // Рассчитываем доступную ширину для кнопок (с отступами по краям)
@@ -59,10 +60,9 @@ public class DoorBehaviour : MonoBehaviour
         float duration = 1f;
 
 
+        yield return new WaitForSeconds(delay);
         for (int i = 0; i < buttonCount; i++)
         {
-            // Рассчитываем позицию X для текущей кнопки
-            // Центрируем кнопки относительно экрана
             float xPos = -availableWidth / 2f + buttonWidth * (i + 0.5f);
 
             Vector3 position = new Vector3(xPos, 0f, 0f); // y = 0, как требуется
@@ -72,10 +72,8 @@ public class DoorBehaviour : MonoBehaviour
             SpellButtonFacade facade = spellButtonSpawner.Spawn(Vector3.zero, Quaternion.identity);
             RectTransform rect = facade.GetComponent<RectTransform>();
 
-            // Устанавливаем размер (ширина — рассчитанная, высоту оставляем как есть или задаём явно)
             rect.sizeDelta = new Vector2(1, 1); // высоту можно зафиксировать
 
-            // Анимации (как в вашем коде)
             Vector2 targetSize = new Vector2(buttonWidthPixel, 500f); // пример: высота 500
             facade.animator.StartChangeShapeAnimation(targetSize, duration);
             facade.mover.MoveEaseOut(position, duration);
