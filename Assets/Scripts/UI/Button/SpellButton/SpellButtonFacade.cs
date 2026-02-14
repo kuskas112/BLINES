@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class SpellButtonFacade : ButtonFacade
 {
-    [HideInInspector] public SpellButtonBehaviour spellButton;
+    [HideInInspector] public SpellButtonBehaviour behaviour;
 
     protected override void Awake()
     {
         base.Awake();
-        spellButton = GetComponent<SpellButtonBehaviour>();
+        behaviour = GetComponent<SpellButtonBehaviour>();
     }
 }

@@ -43,9 +43,9 @@ Material:
     m_Floats:
     - _EdgeWidth: 0
     - _EnableExternalAlpha: 0
-    - _GlowIntensity: 1.5
-    - _Radius: 0.12
-    - _Speed: 100
+    - _GlowIntensity: 1.3
+    - _Radius: 0
+    - _Speed: 50
     - _StripIntensity: 5
     - _StripPosition: 0.5
     - _StripWidth: 0.02
