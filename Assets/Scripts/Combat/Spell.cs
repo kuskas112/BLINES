@@ -24,5 +24,5 @@ public class Spell
         #if UNITY_EDITOR
         Debug.Log("Casted " + Name);
         #endif
-    }    
+    }
 }

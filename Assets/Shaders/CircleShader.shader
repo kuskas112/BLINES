@@ -62,7 +62,8 @@ Shader "Custom/CircleShader"
             {
                 float2 centeredUV = IN.uv - 0.5;
                 float speed = 2;
-                float newRadius = _Radius * sin(_Time * _Speed);
+                float pulse = sin(_Time * _Speed);
+                float newRadius = _Radius + pulse;
                 newRadius *= newRadius;
                 float distToCenter = centeredUV.x * centeredUV.x + centeredUV.y * centeredUV.y;
 

@@ -5,6 +5,11 @@ public abstract class BasicSpawner<T> : MonoBehaviour where T : MonoBehaviour
     [SerializeField] protected T prefab;
     [SerializeField] protected Transform spawnParent;
 
+    public void SetPrefab(T pref)
+    {
+        prefab = pref;
+    }
+
     public virtual T Spawn(Vector3 position, Quaternion rotation)
     {
         if (prefab == null)

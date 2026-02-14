@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 public class BattleManager : MonoBehaviour
 {
     private static BattleManager _instance;
@@ -29,31 +30,6 @@ public class BattleManager : MonoBehaviour
             Player,
             Enemy
         );
-        for (int i = 0; i < 4; i++)
-        {
-            Player.spells.Add(
-                new BasicAttack
-                {
-                    Rareness = (SpellRareness)i,
-                    Modifiers = new List<Modifier>
-                    {
-                        new Modifier
-                        (
-                            ModifierType.Add,
-                            ModifierTarget.AttackDamage,
-                            10f * (i + 1)
-                        )
-                    }
-                }
-            );
-
-            Enemy.spells.Add(
-                new BasicAttack
-                {
-                    Rareness = (SpellRareness)(i + 1)
-                }
-            );
-        }
     }
 
     void Start()
@@ -75,41 +51,67 @@ public class BattleManager : MonoBehaviour
         battleContext.NextTurn();
     }
 
-    public Spell GetPlayerSpell(int index)
+    private void AddSpellTo(Fighter fighter, Spell spell)
     {
-        if (index >= 0 && index < battleContext.Player.spells.Count)
+        if (IsSpellIn(fighter, spell) == false)
         {
-            return battleContext.Player.spells[index];
+            Player.spells.Add(spell);
         }
-        Debug.LogWarning("Invalid player spell index: " + index + ". Player has " + battleContext.Player.spells.Count + " spells.");
-        return null;
     }
 
-    public Spell GetEnemySpell(int index)
+    public void AddSpellToPlayer(Spell spell)
     {
-        if (index >= 0 && index < battleContext.Enemy.spells.Count)
-        {
-            return battleContext.Enemy.spells[index];
-        }
-        Debug.LogWarning("Invalid enemy spell index: " + index + ". Enemy has " + battleContext.Enemy.spells.Count + " spells.");
-        return null;
+        AddSpellTo(Player, spell);
     }
 
-    public void CastPlayerSpell(int index)
+    public void AddSpellToEnemy(Spell spell)
+    {
+        AddSpellTo(Enemy, spell);
+    }
+
+    private bool IsSpellIn(Fighter fighter, Spell spell)
+    {
+        if (fighter == null || spell == null)
+        {
+            Debug.LogError("Invalid fighter or spell in IsSpellIn");
+            return false;
+        }
+        foreach(Spell plSpell in Player.spells)
+        {
+            if (plSpell != null && plSpell == spell)
+            {
+                return true;
+            }
+            if(plSpell.Name == spell.Name)
+            {
+                Debug.LogError("Player already has another spell with name '" + spell.Name + "'");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void Cast(Spell spell)
+    {
+        spell.Cast(battleContext);
+    }
+
+    public void CastPlayerSpell(Spell spell)
     {
         if (!IsPlayerTurn())
         {
             Debug.LogWarning("It's not player's turn!");
             return;
         }
-        Spell spell = GetPlayerSpell(index);
-        if (spell != null)
+        if (spell != null && IsSpellIn(Player, spell))
         {
-            spell.Cast(battleContext);
+            Cast(spell);
+            Debug.Log("Player casted " + spell.Name);
             NextTurn();
             if (IsEnemyHaveSpells())
             {
-                CastEnemySpell(Random.Range(0, battleContext.Enemy.spells.Count));
+                // TODO: ну сделать адекватно
+                CastEnemySpell(Enemy.spells[0]);
             }
             else
             {
@@ -129,17 +131,16 @@ public class BattleManager : MonoBehaviour
         return battleContext.Player.spells.Count > 0;
     }
 
-    public void CastEnemySpell(int index)
+    public void CastEnemySpell(Spell spell)
     {
         if (!IsEnemyTurn())
         {
             Debug.LogWarning("It's not enemy's turn!");
             return;
         }
-        Spell spell = GetEnemySpell(index);
-        if (spell != null)
+        if (spell != null && IsSpellIn(Enemy, spell))
         {
-            spell.Cast(battleContext);
+            Cast(spell);
             NextTurn();
         }
     }
