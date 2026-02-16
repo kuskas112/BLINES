@@ -5,20 +5,17 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Button))]
-public class DoorBehaviour : MonoBehaviour
+public class DoorBehaviour : ButtonBehaviour
 {
-    private Button button;
     private SpellButtonSpawner spellButtonSpawner;
     private DoorAnimator animator;
-    private bool isCliked = false;
     // Событие, которое вызывается после спавна
     public UnityEvent<List<SpellButtonFacade>> OnSpellButtonsSpawned;
     private List<SpellButtonFacade> prefabs = new();
 
-    private void Awake()
+    protected override void Awake()
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnButtonClicked);
+        base.Awake();
         animator = GetComponent<DoorAnimator>();
         spellButtonSpawner = FindAnyObjectByType<SpellButtonSpawner>();
         int prefabsCount = 3;
@@ -29,13 +26,19 @@ public class DoorBehaviour : MonoBehaviour
         }
     }
 
-    private void OnButtonClicked()
+    public override void OnClickListener()
     {
-        // Отрабатывает 1 раз
-        if (isCliked) return;
-        isCliked = true;
-        float delay = animator.doorDisappearDuration;
+        base.OnClickListener();
+        animator.StartGlowToggleAnimation(
+            animator.maxGlow,
+            animator.duration
+        );
 
+        animator.StartDoorDisappearAnimation(
+            animator.doorDisappearDuration
+        );
+
+        float delay = animator.doorDisappearDuration;
         StartCoroutine(SpawnCoroutine(delay));
     }
 
@@ -43,9 +46,6 @@ public class DoorBehaviour : MonoBehaviour
     {
         return SpellButtonPrefabSelector.Instance.GetRandomPrefab();
     }
-
-
-
 
     private IEnumerator SpawnCoroutine(float delay = 1f)
     {
@@ -93,4 +93,13 @@ public class DoorBehaviour : MonoBehaviour
         Destroy(gameObject);
     }
 
+    protected override void PlaySpecificAnimation()
+    {
+    }
+
+    protected override void PlayDefaultAnimation()
+    {
+        base.PlayDefaultAnimation();
+        animator.StartOnClickAnimation();
+    }
 }

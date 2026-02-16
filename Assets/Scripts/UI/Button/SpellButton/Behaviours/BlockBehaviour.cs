@@ -4,6 +4,6 @@ public class BlockBehaviour : SpellButtonBehaviour
 {
     private void Start()
     {
-        SetSpell(new Block());
+        //SetSpell(new Block());
     }
 }

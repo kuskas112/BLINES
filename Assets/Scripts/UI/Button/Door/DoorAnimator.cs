@@ -8,13 +8,11 @@ public class DoorAnimator : ButtonAnimator
     [Header("Door Animation Settings")]
     public float doorDisappearDuration = 1f;
 
-
-    protected override void OnButtonClicked()
+    public override void StartOnClickAnimation()
     {
-        base.OnButtonClicked();
+        base.StartOnClickAnimation();
         StartDoorDisappearAnimation(doorDisappearDuration);
     }
-
     public IEnumerator DoorDisappearAnimation(float duration = 1f)
     {
         Material mat = buttonMaterialSetter.EdgeMaterial;

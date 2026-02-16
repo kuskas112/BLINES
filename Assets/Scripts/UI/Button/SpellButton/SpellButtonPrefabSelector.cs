@@ -10,4 +10,10 @@ public class SpellButtonPrefabSelector : PrefabSelector<SpellButtonFacade>
         Init();
     }
     protected override string prefabPath => "Prefabs/SpellButtons/Variants";
+
+    public SpellButtonFacade GetPrefabBySpell(Spell spell)
+    {
+        string name = spell.GetType().Name;
+        return GetPrefabByName(name);
+    }
 }

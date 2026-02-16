@@ -48,6 +48,15 @@ public class BattleManager : MonoBehaviour
 
     public void NextTurn()
     {
+        if (IsPlayerTurn()) {
+            Player.polygonFacade.animator.StopPulseAnimation();
+            Enemy.polygonFacade.animator.StartPulseAnimation();
+        }
+        else
+        {
+            Enemy.polygonFacade.animator.StopPulseAnimation();
+            Player.polygonFacade.animator.StartPulseAnimation();
+        }
         battleContext.NextTurn();
     }
 
@@ -55,7 +64,7 @@ public class BattleManager : MonoBehaviour
     {
         if (IsSpellIn(fighter, spell) == false)
         {
-            Player.spells.Add(spell);
+            fighter.spells.Add(spell);
         }
     }
 
@@ -76,7 +85,7 @@ public class BattleManager : MonoBehaviour
             Debug.LogError("Invalid fighter or spell in IsSpellIn");
             return false;
         }
-        foreach(Spell plSpell in Player.spells)
+        foreach(Spell plSpell in fighter.spells)
         {
             if (plSpell != null && plSpell == spell)
             {
@@ -84,7 +93,8 @@ public class BattleManager : MonoBehaviour
             }
             if(plSpell.Name == spell.Name)
             {
-                Debug.LogError("Player already has another spell with name '" + spell.Name + "'");
+                string fighterName = fighter == Player ? "Player" : "Enemy";
+                Debug.LogError(fighterName + " already has another spell with name '" + spell.Name + "'");
                 return true;
             }
         }
@@ -108,16 +118,10 @@ public class BattleManager : MonoBehaviour
             Cast(spell);
             Debug.Log("Player casted " + spell.Name);
             NextTurn();
-            if (IsEnemyHaveSpells())
-            {
-                // TODO: ну сделать адекватно
-                CastEnemySpell(Enemy.spells[0]);
-            }
-            else
-            {
-                // Если у врага нет заклинаний, он просто пропускает ход
-                NextTurn();
-            }
+        }
+        else
+        {
+            Debug.LogError("Invalid Spell");
         }
     }
 

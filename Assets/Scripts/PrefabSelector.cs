@@ -41,18 +41,15 @@ public class PrefabSelector<T> where T : MonoBehaviour
         return prefabNames[ind];
     }
 
-    public T GetRandomPrefab()
+    public T GetPrefabByName(string name)
     {
-        int randInd = Random.Range(0, PrefabCount); // Исключаем PrefabCount
-
-        string prefabName = GetNameByIndex(randInd);
-        if (string.IsNullOrEmpty(prefabName))
+        if (string.IsNullOrEmpty(name))
         {
-            Debug.LogError($"Invalid prefab name at index {randInd}");
+            Debug.LogError($"Invalid prefab name");
             return null;
         }
 
-        if (prefabCache.TryGetValue(prefabName, out T cachedPrefab))
+        if (prefabCache.TryGetValue(name, out T cachedPrefab))
         {
             if (cachedPrefab != null)
             {
@@ -61,11 +58,11 @@ public class PrefabSelector<T> where T : MonoBehaviour
             else
             {
                 // В кэше null - удаляем запись
-                prefabCache.Remove(prefabName);
+                prefabCache.Remove(name);
             }
         }
 
-        string path = $"{prefabPath}/{prefabName}";
+        string path = $"{prefabPath}/{name}";
         T loadedPrefab = Resources.Load<T>(path);
 
         if (loadedPrefab == null)
@@ -74,8 +71,14 @@ public class PrefabSelector<T> where T : MonoBehaviour
             return null;
         }
 
-        prefabCache.Add(prefabName, loadedPrefab);
-
+        prefabCache.Add(name, loadedPrefab);
         return loadedPrefab;
+    }
+
+    public T GetRandomPrefab()
+    {
+        int randInd = Random.Range(0, PrefabCount); // Исключаем PrefabCount
+        string prefabName = GetNameByIndex(randInd);
+        return GetPrefabByName(prefabName);
     }
 }

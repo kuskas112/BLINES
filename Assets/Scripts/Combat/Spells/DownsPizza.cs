@@ -6,6 +6,7 @@ public class DownsPizza : Spell
         Name = "Down`s Pizza";
         Description = "Healing few HP";
         this.Type = SpellType.Consumable; 
+        Rareness = SpellRareness.Epic;
     }
     public float HealMultiplier = 2.5f;
 

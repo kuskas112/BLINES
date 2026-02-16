@@ -1,25 +1,35 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpellButtonBehaviour : MonoBehaviour
+public class SpellButtonBehaviour : ButtonBehaviour
 {
-    public Button button;
     public GameObject spellObject;
     public Spell spell;
+    public ButtonAnimator animator;
 
-    public bool Clickable = true;
     private ShapeFacade shapeFacade;
     private Camera mainCamera;
     private RectTransform buttonRect;
 
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (button == null) button = GetComponent<Button>();
+        base.Awake();
+        animator = GetComponent<ButtonAnimator>();
         buttonRect = button.GetComponent<RectTransform>();
         if (mainCamera == null) mainCamera = CameraManager.Camera;
-        button.onClick.AddListener(OnClickListener);
         if (spellObject != null) SetShapeFacade();
+    }
+
+    protected override void PlayDefaultAnimation()
+    {
+        base.PlayDefaultAnimation();
+        animator.StartOnClickAnimation();
+    }
+
+    protected override void PlaySpecificAnimation()
+    {
+        
     }
 
     private void SetShapeFacade()
@@ -27,7 +37,7 @@ public class SpellButtonBehaviour : MonoBehaviour
         shapeFacade = spellObject.GetComponent<ShapeFacade>();
     }
 
-    protected void SetSpell(Spell spell)
+    public void SetSpell(Spell spell)
     {
         this.spell = spell;
         Color newColor = GetColorFromSpellRareness();
@@ -56,12 +66,20 @@ public class SpellButtonBehaviour : MonoBehaviour
         BattleManager.Instance.AddSpellToEnemy(spell);
     }
 
-    public void OnClickListener()
+    public override void OnClickListener()
     {
+        base.OnClickListener();
         // А как ты собрался кастовать если нету объекта спелла
-        if (shapeFacade != null && BattleManager.Instance.IsPlayerTurn() && Clickable)
+        if (shapeFacade != null && Clickable)
         {
-            BattleManager.Instance.CastPlayerSpell(spell);
+            if (BattleManager.Instance.IsPlayerTurn())
+            {
+                BattleManager.Instance.CastPlayerSpell(spell);
+            }
+            else
+            {
+                BattleManager.Instance.CastEnemySpell(spell);
+            }
         }
     }
 

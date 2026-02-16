@@ -23,18 +23,9 @@ public class ButtonAnimator : BasicObjectAnimator
         buttonRect = GetComponent<RectTransform>();
     }
 
-    private void Start()
+    public virtual void StartOnClickAnimation()
     {
-        baseColor = buttonMaterialSetter.EdgeNeonColor;
-        GetComponent<Button>().onClick.AddListener(OnButtonClicked);
-    }
-
-    protected virtual void OnButtonClicked()
-    {
-        if(BattleManager.Instance.IsPlayerTurn())
-        {
-            StartGlowToggleAnimation(maxGlow, duration);
-        }
+        StartGlowToggleAnimation(maxGlow, duration);
     }
 
     public IEnumerator GlowToggleAnimation(float maxGlow = 0.5f, float duration = 1f)
@@ -100,6 +91,5 @@ public class ButtonAnimator : BasicObjectAnimator
     public void StopChangeShapeAnimation()
     {
         StopAnimation(CHANGE_SHAPE_ANIMATION_KEY);
-        buttonMaterialSetter.EdgeNeonColor = baseColor;
     }
 }

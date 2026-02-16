@@ -25,19 +25,11 @@ public class Block : Spell
 
     private void OnTurnStarted(int round) 
     {
-        if (round - roundOfEffectStart != 1)
-        {
-            Debug.LogError("Effect of Block should last only for one turn, but it lasted for " + (round - roundOfEffectStart) + " turns.");
-        }
-        if (round > roundOfEffectStart)
+        if (round - roundOfEffectStart == 1)
         {
             caster.Defence = oldDefence; // Reset defence to original value
             Debug.Log("Defence reset to original value: " + oldDefence);
+            context.OnTurnStarted.RemoveListener(OnTurnStarted); // Stop listening after resetting defence
         }
-        else
-        {
-            Debug.LogError("Turn started event triggered before the next turn. Current round: " + round + ", round of effect start: " + roundOfEffectStart);
-        }
-        context.OnTurnStarted.RemoveListener(OnTurnStarted); // Stop listening after resetting defence
     }
 }
