@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class DownsPizzaBehaviour : SpellButtonBehaviour
 {
-    private void Start()
+    public override Spell GetDefaultSpell()
     {
-        //SetSpell(new DownsPizza());
+        if (spell == null)
+        {
+            spell = new DownsPizza();
+        }
+        return spell;
     }
 }

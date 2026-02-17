@@ -4,6 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
 
+public enum FighterType
+{
+    Player,
+    Enemy
+};
 public class Fighter1fEvent : UnityEvent<float> {}
 public class Fighter : MonoBehaviour
 {

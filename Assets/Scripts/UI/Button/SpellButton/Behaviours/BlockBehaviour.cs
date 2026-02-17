@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class BlockBehaviour : SpellButtonBehaviour
 {
-    private void Start()
+    public override Spell GetDefaultSpell()
     {
-        //SetSpell(new Block());
+        if (spell == null)
+        {
+            spell = new Block();
+        }
+        return spell;
     }
 }

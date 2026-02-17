@@ -21,7 +21,7 @@ public class PrefabSelector<T> where T : MonoBehaviour
     private Dictionary<string, T> prefabCache = new();
     private List<string> prefabNames = new();
 
-    protected virtual void Init()
+    protected virtual T[] Init()
     {
         prefabCache.Clear();
         prefabNames.Clear();
@@ -34,6 +34,7 @@ public class PrefabSelector<T> where T : MonoBehaviour
             Debug.Log("Added prefab " + prefab.gameObject.name);
         }
         Debug.Log("Added all prefabs from " + prefabPath);
+        return prefabs; // возврат загруженных префабов для работы с ними в наследниках
     }
 
     private string GetNameByIndex(int ind)

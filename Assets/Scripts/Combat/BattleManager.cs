@@ -95,7 +95,7 @@ public class BattleManager : MonoBehaviour
             {
                 string fighterName = fighter == Player ? "Player" : "Enemy";
                 Debug.LogError(fighterName + " already has another spell with name '" + spell.Name + "'");
-                return true;
+                return false;
             }
         }
         return false;

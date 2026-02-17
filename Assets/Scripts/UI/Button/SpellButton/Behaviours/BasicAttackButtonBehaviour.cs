@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class BasicAttackBehaviour : SpellButtonBehaviour
 {
-    void Start()
+    public override Spell GetDefaultSpell()
     {
-        //SetSpell(new BasicAttack());
+        if(spell == null)
+        {
+            spell = new BasicAttack();
+        }
+        return spell;
     }
 }

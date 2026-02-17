@@ -2,10 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public enum FighterType { 
-    Player,
-    Enemy
-};
 public class SpellButtonPlacementManager : MonoBehaviour
 {
     private Fighter fighter;

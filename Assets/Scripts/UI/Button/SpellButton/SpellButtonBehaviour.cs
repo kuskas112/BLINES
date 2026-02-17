@@ -6,11 +6,12 @@ public class SpellButtonBehaviour : ButtonBehaviour
     public GameObject spellObject;
     public Spell spell;
     public ButtonAnimator animator;
+    public bool Castable = true;
 
     private ShapeFacade shapeFacade;
     private Camera mainCamera;
     private RectTransform buttonRect;
-
+    
 
     protected override void Awake()
     {
@@ -19,6 +20,12 @@ public class SpellButtonBehaviour : ButtonBehaviour
         buttonRect = button.GetComponent<RectTransform>();
         if (mainCamera == null) mainCamera = CameraManager.Camera;
         if (spellObject != null) SetShapeFacade();
+        SetSpell(GetDefaultSpell());
+    }
+
+    public virtual Spell GetDefaultSpell()
+    {
+        return null;
     }
 
     protected override void PlayDefaultAnimation()
@@ -30,6 +37,12 @@ public class SpellButtonBehaviour : ButtonBehaviour
     protected override void PlaySpecificAnimation()
     {
         
+    }
+
+    public virtual Spell GetSpell() 
+    {
+        if (spell == null) return GetDefaultSpell();
+        return spell;
     }
 
     private void SetShapeFacade()
