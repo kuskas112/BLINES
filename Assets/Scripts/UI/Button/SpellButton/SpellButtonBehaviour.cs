@@ -16,11 +16,11 @@ public class SpellButtonBehaviour : ButtonBehaviour
     protected override void Awake()
     {
         base.Awake();
-        animator = GetComponent<ButtonAnimator>();
-        buttonRect = button.GetComponent<RectTransform>();
+        if (animator == null) animator = GetComponent<ButtonAnimator>();
+        if (buttonRect == null) buttonRect = button.GetComponent<RectTransform>();
         if (mainCamera == null) mainCamera = CameraManager.Camera;
         if (spellObject != null) SetShapeFacade();
-        SetSpell(GetDefaultSpell());
+        if (spell == null) SetSpell(GetDefaultSpell());
     }
 
     public virtual Spell GetDefaultSpell()

@@ -6,6 +6,6 @@ using System.Collections.Generic;
 // нужно контроллировать, в зависимости от редкости или от длительности партии.
 public interface ISpellButtonPrefabBundler
 {
-    public List<SpellButtonFacade> GetPrefabs();
+    //public List<SpellButtonFacade> GetPrefabs();
     public List<SpellButtonFacade> GetAmountOfPrefabs(int amount);
 }

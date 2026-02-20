@@ -7,10 +7,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Button))]
 public class DoorBehaviour : ButtonBehaviour
 {
-    private SpellButtonSpawner spellButtonSpawner;
-    private DoorAnimator animator;
     // Событие, которое вызывается после спавна
     public UnityEvent<List<SpellButtonFacade>> OnSpellButtonsSpawned;
+    public ISpellButtonPrefabBundler spellBundler = new DefaultRarenessSpellBundler();
+
+    private SpellButtonSpawner spellButtonSpawner;
+    private DoorAnimator animator;
     private List<SpellButtonFacade> prefabs = new();
 
     protected override void Awake()
@@ -18,12 +20,7 @@ public class DoorBehaviour : ButtonBehaviour
         base.Awake();
         animator = GetComponent<DoorAnimator>();
         spellButtonSpawner = FindAnyObjectByType<SpellButtonSpawner>();
-        int prefabsCount = 3;
-        for (int i = 0; i < prefabsCount; i++)
-        {
-            SpellButtonFacade facade = GetRandomPrefab();
-            prefabs.Add(facade);
-        }
+        prefabs = spellBundler.GetAmountOfPrefabs(2);
     }
 
     public override void OnClickListener()

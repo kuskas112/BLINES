@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpellButtonPrefabSelector : PrefabSelector<SpellButtonFacade>
 {
@@ -9,14 +10,16 @@ public class SpellButtonPrefabSelector : PrefabSelector<SpellButtonFacade>
     {
         Init();
     }
+    public Dictionary<string, Spell> loadedSpells = new();
 
     protected override SpellButtonFacade[] Init()
     {
         SpellButtonFacade[] prefabs = base.Init();
         foreach (var prefab in prefabs)
         {
+            prefab.Init();
             Spell spell = prefab.behaviour.GetSpell();
-            Debug.Log("LALALA " + spell.Name);
+            loadedSpells.Add(spell.Name, spell);
         }
         return prefabs;
     }
