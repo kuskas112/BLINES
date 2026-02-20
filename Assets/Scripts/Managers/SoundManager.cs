@@ -9,7 +9,6 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         audioPool = GetComponent<AudioPool>();
-        PolygonAnimator.onBounce.AddListener(PlayBounceSound);
     }
 
     private void PlayBounceSound(string key, float duration)

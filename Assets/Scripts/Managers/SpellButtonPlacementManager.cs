@@ -21,23 +21,6 @@ public class SpellButtonPlacementManager : MonoBehaviour
         }
         spawner = FindAnyObjectByType<SpellButtonSpawner>();
 
-
-        if(type == FighterType.Enemy)
-        {
-            BattleManager.Instance.AddSpellToEnemy(new BasicAttack());
-            BattleManager.Instance.AddSpellToEnemy(new Block());
-            BattleManager.Instance.AddSpellToEnemy(new DownsPizza());
-        }
-        else
-        {
-            BattleManager.Instance.AddSpellToPlayer(new BasicAttack());
-            BattleManager.Instance.AddSpellToPlayer(new Block());
-            BattleManager.Instance.AddSpellToPlayer(new DownsPizza());
-        }
-
-
-        SpawnButtonsOnPositions();
-
     }
 
     public void DestroySpawnedButtons()

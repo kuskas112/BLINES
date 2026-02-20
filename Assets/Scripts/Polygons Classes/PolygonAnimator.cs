@@ -12,8 +12,8 @@ public class PolygonAnimator : BasicObjectAnimator
 
     [Header("Basic Settings")]
     public Polygon polygon;
+    public bool autoStartAnimation = true;
     [SerializeField] private float baseRadius = 1f;
-    [SerializeField] private bool autoStartAnimation = true;
 
     [Space()]
     [Header("Default Animation Parameters")]

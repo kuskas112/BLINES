@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatedPolygon
   polygon: {fileID: 2814522170655053480}
-  baseRadius: 1
   autoStartAnimation: 1
+  baseRadius: 1
   pulseEnabled: 1
   pulseSpeed: 5
   pulseAmount: 0.3
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653fa92881995974293320e37552a1a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PolygonMover
-  IsMoving: 1
+  IsMoving: 0
   MoveCurve:
     serializedVersion: 2
     m_Curve:

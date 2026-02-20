@@ -94,6 +94,10 @@ public class Mover : MonoBehaviour
         {
             StartCoroutine(MoveCoroutine(targetPosition, duration, curve));
         }
+        else
+        {
+            Debug.LogWarning("Already moving. Wait until the current movement is finished.");
+        }
     }
 
     public void MoveEaseOut(Vector2 targetPosition, float duration)

@@ -30,11 +30,18 @@ public class BattleManager : MonoBehaviour
             Player,
             Enemy
         );
+
     }
 
-    void Start()
+    public void SpawnFighters(Vector2 playerPos, Vector2 enemyPos)
     {
-        
+        var spawner = FindAnyObjectByType<PolygonSpawner>();
+
+        var playerInst = spawner.Spawn(new(0, -10), Quaternion.identity);
+        var enemyInst  = spawner.Spawn(new(0,  10), Quaternion.identity);
+
+        playerInst.mover.MoveEaseOut(playerPos, 1.5f);
+        enemyInst.mover.Move(enemyPos, 1.5f);
     }
 
     public bool IsPlayerTurn()
