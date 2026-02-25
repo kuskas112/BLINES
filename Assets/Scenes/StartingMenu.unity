@@ -737,7 +737,43 @@ MonoBehaviour:
   IsMoving: 0
   MoveCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.028314073
+      outSlope: 0.028314073
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.9813171
+    - serializedVersion: 3
+      time: 0.1114445
+      value: 0.040016085
+      inSlope: 1.01644
+      outSlope: 1.01644
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.55022967
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.5078129
+      value: 0.9500744
+      inSlope: 0.43027085
+      outSlope: 0.43027085
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.13053073
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
