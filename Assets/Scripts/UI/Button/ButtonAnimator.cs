@@ -55,8 +55,13 @@ public class ButtonAnimator : BasicObjectAnimator
         buttonMaterialSetter.EdgeNeonColor = baseColor; // Убедиться, что цвет сброшен в исходное состояние
         StopGlowToggleAnimation();
     }
-    public void StartGlowToggleAnimation(float maxGlow = 0.5f, float duration = 1f)
+    public void StartGlowToggleAnimation(float maxGlow = 0, float duration = 0)
     {
+        if(maxGlow == 0 && duration == 0)
+        {// use default params
+            maxGlow = this.maxGlow;
+            duration = this.duration;
+        }
         if (baseColor == Color.clear) baseColor = buttonMaterialSetter.EdgeNeonColor;
         Coroutine animationCoroutine = StartCoroutine(GlowToggleAnimation(maxGlow, duration));
         StartAnimation(GLOW_TOGGLE_ANIMATION_KEY, animationCoroutine);

@@ -10,7 +10,23 @@ public class ButtonMaterialSetter : MaterialSetter
         if(image == null) image = GetComponent<Image>();
         image.material = new Material(image.material);
         _edgeMaterial = image.material;
-        _edgeNeonColor = image.material.GetColor("_NeonColor");
+        if (_edgeNeonColor != Color.clear && !RandomizeColorOnWake)
+        {
+            // Убираем прозрачность, если она есть, чтобы не было проблем с отображением неона
+            if (_edgeNeonColor.a == 0)
+            {
+                _edgeNeonColor = new Color(
+                    _edgeNeonColor.r,
+                    _edgeNeonColor.g,
+                    _edgeNeonColor.b,
+                    100);
+            }
+            UpdateEdgeNeonColor();
+        }
+        else
+        {
+            _edgeNeonColor = image.material.GetColor("_NeonColor");
+        }
         base.Awake();
     }
     protected override void UpdateEdgeNeonColor()
