@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class MenuItemBehaviour : ButtonBehaviour
 {
@@ -21,6 +23,8 @@ public class MenuItemBehaviour : ButtonBehaviour
         facade.animator.StartGlowToggleAnimation();
         yield return new WaitForSeconds(facade.animator.duration);
         facade.mover.MoveEaseOut(targetPos, 1.5f);
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene("GameScene");
     }
 
 }
