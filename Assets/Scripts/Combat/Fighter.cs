@@ -42,6 +42,11 @@ public class Fighter : MonoBehaviour
 
     void Awake()
     {
+        if(PolygonObject == null)
+        {
+            // Если скрипт повесили прямо на полигон
+            PolygonObject = gameObject;
+        }
         polygonFacade = PolygonObject.GetComponent<PolygonFacade>();
     }
 

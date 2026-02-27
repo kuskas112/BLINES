@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 public class BattleManager : MonoBehaviour
 {
     private static BattleManager _instance;
@@ -31,6 +32,19 @@ public class BattleManager : MonoBehaviour
             Enemy
         );
 
+        Player.spells.Add(new BasicAttack());
+        Player.spells.Add(new Block());
+        Player.spells.Add(new DownsPizza());
+
+        Enemy.spells.Add(new BasicAttack());
+        Enemy.spells.Add(new Block());
+        Enemy.spells.Add(new DownsPizza());
+
+        SpawnFighters(
+            new(0, -1),
+            new(0, 1)
+        );
+
     }
 
     public void SpawnFighters(Vector2 playerPos, Vector2 enemyPos)
@@ -38,10 +52,21 @@ public class BattleManager : MonoBehaviour
         var spawner = FindAnyObjectByType<PolygonSpawner>();
 
         var playerInst = spawner.Spawn(new(0, -10), Quaternion.identity);
+        Player.PolygonObject = playerInst.polygon.gameObject;
+        Player.polygonFacade = playerInst;
+
         var enemyInst  = spawner.Spawn(new(0,  10), Quaternion.identity);
+        Enemy.PolygonObject = enemyInst.polygon.gameObject;
+        Enemy.polygonFacade = enemyInst;
 
         playerInst.mover.MoveEaseOut(playerPos, 1.5f);
         enemyInst.mover.Move(enemyPos, 1.5f);
+    }
+
+    private void DestroyFighter(Fighter fighter) 
+    {
+        Destroy(fighter.polygonFacade.polygon.gameObject);
+        Destroy(fighter.gameObject);
     }
 
     public bool IsPlayerTurn()

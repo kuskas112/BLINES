@@ -4,9 +4,11 @@ using Unity.VisualScripting;
 
 public class SpellButtonPlacementManager : MonoBehaviour
 {
-    private Fighter fighter;
     public List<Vector2> positions;
     public FighterType type;
+    public float SlideDuration = 2f;
+
+    private Fighter fighter;
     private SpellButtonSpawner spawner;
     private List<SpellButtonFacade> spawnedInstances = new();
     private void Start()
@@ -20,7 +22,8 @@ public class SpellButtonPlacementManager : MonoBehaviour
             fighter = BattleManager.Instance.Enemy;
         }
         spawner = FindAnyObjectByType<SpellButtonSpawner>();
-
+        //SpawnButtonsOnPositions();
+        SlideButtonsOnPositions();
     }
 
     public void DestroySpawnedButtons()
@@ -43,6 +46,31 @@ public class SpellButtonPlacementManager : MonoBehaviour
             inst.behaviour.SetSpell(spell);
             spawnedInstances.Add(inst);
             Debug.Log("Spawned button for " + spell.Name);
+        }
+    }
+
+    public void SlideButtonsOnPositions()
+    {
+        DestroySpawnedButtons();
+        float startPosOffset = -10f; // Кнопки игрока прилетают снизу
+        if (type == FighterType.Enemy) startPosOffset *= -1; // а врага сверху
+        for (int i = 0; i < fighter.spells.Count; i++)
+        {
+            Vector3 endPos = positions[i];
+            Vector3 pos = positions[i];
+            pos.y = pos.y + startPosOffset;
+
+            Spell spell = fighter.spells[i];
+
+            SpellButtonFacade facade = SpellButtonPrefabSelector.Instance.GetPrefabBySpell(spell);
+            spawner.SetPrefab(facade);
+
+            var inst = spawner.Spawn(pos, Quaternion.identity);
+
+            inst.behaviour.SetSpell(spell);
+            spawnedInstances.Add(inst);
+
+            inst.mover.MoveEaseOut(endPos, SlideDuration);
         }
     }
 }
