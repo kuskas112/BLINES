@@ -22,8 +22,6 @@ public class SpellButtonPlacementManager : MonoBehaviour
             fighter = BattleManager.Instance.Enemy;
         }
         spawner = FindAnyObjectByType<SpellButtonSpawner>();
-        //SpawnButtonsOnPositions();
-        SlideButtonsOnPositions();
     }
 
     public void DestroySpawnedButtons()

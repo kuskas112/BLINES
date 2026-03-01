@@ -82,6 +82,8 @@ public class DoorBehaviour : ButtonBehaviour
 
             facade.animator.StartScaleTo(objectTransform, targetScale, duration);
             facade.mover.MoveEaseOut(position, duration);
+
+            facade.behaviour.Castable = false; // отключаем возможность кастовать, т.к это выбор способности, а не её применение
             instances.Add(facade);
         }
 

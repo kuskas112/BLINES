@@ -32,19 +32,11 @@ public class BattleManager : MonoBehaviour
             Enemy
         );
 
-        Player.spells.Add(new BasicAttack());
-        Player.spells.Add(new Block());
-        Player.spells.Add(new DownsPizza());
-
         Enemy.spells.Add(new BasicAttack());
         Enemy.spells.Add(new Block());
         Enemy.spells.Add(new DownsPizza());
 
-        SpawnFighters(
-            new(0, -1),
-            new(0, 1)
-        );
-
+        Player.spells.Add(new DownsPizza());
     }
 
     public void SpawnFighters(Vector2 playerPos, Vector2 enemyPos)

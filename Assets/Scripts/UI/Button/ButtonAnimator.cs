@@ -7,6 +7,7 @@ public class ButtonAnimator : BasicObjectAnimator
 {
     public const string GLOW_TOGGLE_ANIMATION_KEY = "glowToggle";
     public const string CHANGE_SHAPE_ANIMATION_KEY = "changeShape";
+    public const string CHANGE_COLOR_ANIMATION_KEY = "changeColor";
 
     protected MaterialSetter buttonMaterialSetter;
     protected RectTransform buttonRect;
@@ -96,5 +97,33 @@ public class ButtonAnimator : BasicObjectAnimator
     public void StopChangeShapeAnimation()
     {
         StopAnimation(CHANGE_SHAPE_ANIMATION_KEY);
+    }
+
+    public IEnumerator ChangeColorAnimation(Color target, float duration = 1f)
+    {
+        float time = 0f;
+        float invDuration = 1 / duration;
+        Color startColor = buttonMaterialSetter.EdgeNeonColor;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time * invDuration;
+            float smoothT = Mathf.SmoothStep(0, 1, t);
+            Color color = Color.Lerp(startColor, target, smoothT);
+            buttonMaterialSetter.EdgeNeonColor = color;
+            yield return null;
+        }
+        buttonMaterialSetter.EdgeNeonColor = target;
+        StopChangeColorAnimation();
+    }
+    public void StartChangeColorAnimation(Color target, float duration = 1f)
+    {
+        Coroutine animationCoroutine = StartCoroutine(ChangeColorAnimation(target, duration));
+        StartAnimation(CHANGE_COLOR_ANIMATION_KEY, animationCoroutine);
+    }
+    public void StopChangeColorAnimation()
+    {
+        StopAnimation(CHANGE_COLOR_ANIMATION_KEY);
     }
 }

@@ -83,7 +83,7 @@ public class SpellButtonBehaviour : ButtonBehaviour
     {
         base.OnClickListener();
         // А как ты собрался кастовать если нету объекта спелла
-        if (shapeFacade != null && Clickable)
+        if (shapeFacade != null && Clickable && Castable)
         {
             if (BattleManager.Instance.IsPlayerTurn())
             {
