@@ -1,16 +1,19 @@
+using System.Collections;
 using UnityEngine;
 public class BasicAttack : Spell
 {
     public BasicAttack()
     {
-        Name = "Basic Attack";
-        Description = "Deals damage to the target based on angle count";
-        this.Type = SpellType.Active; 
+        Name              = "Basic Attack";
+        Description       = "Deals damage to the target based on angle count";
+        this.Type         = SpellType.Active; 
+        this.CastAnimator = new ThrowFromCenterCastAnimator(this);
     }
 
     public override void Cast(BattleContext context)
     {
         base.Cast(context);
+        CastAnimator.OnHit.RemoveAllListeners();
         Fighter target = context.IsPlayerTurn ? context.Enemy : context.Player;
         Fighter caster = context.IsPlayerTurn ? context.Player : context.Enemy;
         
@@ -22,7 +25,7 @@ public class BasicAttack : Spell
                 damage = modifier.Apply(damage);
             }
         }
-
-        target.TakeDamage(damage);
+        CastAnimator.OnHit.AddListener(() => target.TakeDamage(damage));
+        CastAnimator.StartCastAnimation(context, 1.5f);
     }
 }

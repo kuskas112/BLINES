@@ -88,25 +88,26 @@ public class Mover : MonoBehaviour
         }
     }
 
-    public void Move(Vector2 targetPosition, float duration, AnimationCurve curve = null)
+    public Coroutine Move(Vector2 targetPosition, float duration, AnimationCurve curve = null)
     {
         if (!IsMoving)
         {
-            StartCoroutine(MoveCoroutine(targetPosition, duration, curve));
+            return StartCoroutine(MoveCoroutine(targetPosition, duration, curve));
         }
         else
         {
             Debug.LogWarning("Already moving. Wait until the current movement is finished.");
         }
+        return null;
     }
 
-    public void MoveEaseOut(Vector2 targetPosition, float duration)
+    public Coroutine MoveEaseOut(Vector2 targetPosition, float duration)
     {
-        Move(targetPosition, duration, MoveCurve);
+        return Move(targetPosition, duration, MoveCurve);
     }
-    public void MoveLinear(Vector2 targetPosition, float duration)
+    public Coroutine MoveLinear(Vector2 targetPosition, float duration)
     {
-        Move(targetPosition, duration, LinearCurve);
+        return Move(targetPosition, duration, LinearCurve);
     }
     public void SetPosition(Vector2 position)
     {

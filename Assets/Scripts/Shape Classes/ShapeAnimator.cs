@@ -23,7 +23,7 @@ public class ShapeAnimator : BasicObjectAnimator
         }
     }
 
-    private void StartDefaultAnimations()
+    public void StartDefaultAnimations()
     {
         if (shakeEnabled)
         {

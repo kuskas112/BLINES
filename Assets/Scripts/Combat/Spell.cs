@@ -11,6 +11,7 @@ public class Spell
     public SpellType Type;
     public SpellRareness Rareness = SpellRareness.Default;
     public List<Modifier> Modifiers = new();
+    public CastAnimator CastAnimator;
 
     public Spell()
     {

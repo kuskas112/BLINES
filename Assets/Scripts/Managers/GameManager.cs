@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
             facade.behaviour.button.onClick.AddListener(() =>
             {
                 MovePlayerToFightPos();
+                MoveEnemyToFightPos();
                 battleManager.Player.spells.Add(
                     facade.behaviour.GetSpell()
                     );
@@ -76,5 +77,15 @@ public class GameManager : MonoBehaviour
 
         battleManager.Player.polygonFacade.mover.MoveEaseOut(
             new(0, -1f), duration);
+    }
+
+    void MoveEnemyToFightPos(float duration = 3f)
+    {
+        float rotation = battleManager.Enemy.polygonFacade.transform.rotation.eulerAngles.z;
+        battleManager.Enemy.polygonFacade.animator.StartRotationChangeAnimation(
+            battleManager.Enemy.polygonFacade.transform, duration, rotation - 360f);
+
+        battleManager.Enemy.polygonFacade.mover.MoveEaseOut(
+            new(0, 1f), duration);
     }
 }

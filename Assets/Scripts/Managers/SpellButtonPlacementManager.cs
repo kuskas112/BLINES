@@ -7,10 +7,10 @@ public class SpellButtonPlacementManager : MonoBehaviour
     public List<Vector2> positions;
     public FighterType type;
     public float SlideDuration = 2f;
+    public List<SpellButtonFacade> spawnedInstances = new();
 
     private Fighter fighter;
     private SpellButtonSpawner spawner;
-    private List<SpellButtonFacade> spawnedInstances = new();
     private void Start()
     {
         if(type == FighterType.Player)

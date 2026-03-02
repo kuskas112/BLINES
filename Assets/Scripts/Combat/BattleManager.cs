@@ -130,6 +130,11 @@ public class BattleManager : MonoBehaviour
         spell.Cast(battleContext);
     }
 
+    public void PlayCastAnimation(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
+    }
+
     public void CastPlayerSpell(Spell spell)
     {
         if (!IsPlayerTurn())
