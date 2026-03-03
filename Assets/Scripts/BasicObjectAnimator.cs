@@ -107,40 +107,44 @@ public class BasicObjectAnimator : MonoBehaviour
     }
 
     // ====================== ПУБЛИЧНОЕ API ============================
-    public void StartRotationAnimation(Transform transform, float speed = 30f)
+    public Coroutine StartRotationAnimation(Transform transform, float speed = 30f)
     {
         Coroutine animationCoroutine = StartCoroutine(RotationAnimation(transform, speed));
         StartAnimation(ROTATION_ANIMATION_KEY, animationCoroutine);
+        return animationCoroutine;
     }
     public void StopRotationAnimation()
     {
         StopAnimation(ROTATION_ANIMATION_KEY);
     }
 
-    public void StartShakeAnimation(Transform transform, float speed = 1f, float shakeOffset = 50f)
+    public Coroutine StartShakeAnimation(Transform transform, float speed = 1f, float shakeOffset = 50f)
     {
         Coroutine animationCoroutine = StartCoroutine(ShakeAnimation(transform, speed, shakeOffset));
         StartAnimation(SHAKE_ANIMATION_KEY, animationCoroutine);
+        return animationCoroutine;
     }
     public void StopShakeAnimation()
     {
         StopAnimation(SHAKE_ANIMATION_KEY);
     }
 
-    public void StartRotationChangeAnimation(Transform transform, float duration = 1f, float targetAngle = 0f)
+    public Coroutine StartRotationChangeAnimation(Transform transform, float duration = 1f, float targetAngle = 0f)
     {
         Coroutine animationCoroutine = StartCoroutine(RotationChangeAnimation(transform, duration, targetAngle));
         StartAnimation(ROTATION_CHANGE_ANIMATION_KEY, animationCoroutine);
+        return animationCoroutine;
     }
     public void StopRotationChangeAnimation()
     {
         StopAnimation(ROTATION_CHANGE_ANIMATION_KEY);
     }
 
-    public void StartScaleTo(Transform target, Vector3 targetScale, float duration)
+    public Coroutine StartScaleTo(Transform target, Vector3 targetScale, float duration)
     {
         Coroutine animationCoroutine = StartCoroutine(ScaleTo(target, targetScale, duration));
         StartAnimation(SCALE_TO_ANIMATION_KEY, animationCoroutine);
+        return animationCoroutine;
     }
     public void StopScaleTo()
     {

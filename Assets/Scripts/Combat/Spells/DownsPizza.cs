@@ -7,12 +7,14 @@ public class DownsPizza : Spell
         Description = "Healing few HP";
         this.Type = SpellType.Consumable; 
         Rareness = SpellRareness.Epic;
+        CastAnimator = new OnCasterBounceCastAnimator(this);
     }
     public float HealMultiplier = 2.5f;
 
     public override void Cast(BattleContext context)
     {
         base.Cast(context);
+        CastAnimator.OnHit.RemoveAllListeners();
         Fighter caster = context.IsPlayerTurn ? context.Player : context.Enemy;
         
         float amount = caster.GetPolygon().Angles * HealMultiplier;
@@ -24,7 +26,7 @@ public class DownsPizza : Spell
             }
         }
 
-        caster.TakeHeal(amount);
-        CastAnimator?.StartCastAnimation(context, 1f);
+        CastAnimator.OnHit.AddListener(() => caster.TakeHeal(amount));
+        CastAnimator?.StartCastAnimation(context, 2.5f);
     }
 }
