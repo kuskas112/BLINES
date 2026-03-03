@@ -86,8 +86,6 @@ public class Fighter : MonoBehaviour
         #endif
         
         Health += heal;
-        //TODO: Event system
-        polygonFacade.animator.StartRotationChangeAnimation(GetPolygon().transform, 1, 360);
     }
 
     public void Die()

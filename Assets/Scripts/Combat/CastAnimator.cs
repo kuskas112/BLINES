@@ -12,21 +12,23 @@ public abstract class CastAnimator
     public UnityEvent OnCastAnimationEnd   = new();
     public UnityEvent OnCastAnimationStart = new();
     public UnityEvent OnHit                = new();
-
+    public Coroutine ActiveCoroutine = null;
 
     abstract public IEnumerator CastAnimation(BattleContext context, float duration);
 
-    public void StartCastAnimation(BattleContext context, float duration)
+    public Coroutine StartCastAnimation(BattleContext context, float duration)
     {
         var button = FindSpellButton(context);
         if (button != null)
         {
-            button.StartCoroutine(CastAnimation(context, duration));
+            ActiveCoroutine = button.StartCoroutine(CastAnimation(context, duration));
+            return ActiveCoroutine;
         }
         else
         {
             Debug.LogError("Cannot start cast animation for spell " + this.spell.Name + " because no button was found.");
         }
+        return null;
     }
 
     protected SpellButtonFacade FindSpellButton(BattleContext context)

@@ -1,8 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
+
 public class BattleManager : MonoBehaviour
 {
     private static BattleManager _instance;
@@ -25,6 +24,9 @@ public class BattleManager : MonoBehaviour
     public BattleContext battleContext;
     public Fighter Player;
     public Fighter Enemy;
+
+    private Queue<Coroutine> activeCastAnimations = new();
+
     void Awake()
     {
         battleContext = new BattleContext(
@@ -34,7 +36,6 @@ public class BattleManager : MonoBehaviour
 
         Enemy.spells.Add(new BasicAttack());
         Enemy.spells.Add(new Block());
-        Enemy.spells.Add(new DownsPizza());
 
         Player.spells.Add(new DownsPizza());
     }
@@ -145,8 +146,6 @@ public class BattleManager : MonoBehaviour
         if (spell != null && IsSpellIn(Player, spell))
         {
             Cast(spell);
-            Debug.Log("Player casted " + spell.Name);
-            NextTurn();
         }
         else
         {
@@ -174,7 +173,6 @@ public class BattleManager : MonoBehaviour
         if (spell != null && IsSpellIn(Enemy, spell))
         {
             Cast(spell);
-            NextTurn();
         }
     }
 }

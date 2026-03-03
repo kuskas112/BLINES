@@ -25,5 +25,6 @@ public class DownsPizza : Spell
         }
 
         caster.TakeHeal(amount);
+        CastAnimator?.StartCastAnimation(context, 1f);
     }
 }

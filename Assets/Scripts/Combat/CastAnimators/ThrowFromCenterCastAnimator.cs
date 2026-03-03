@@ -15,7 +15,6 @@ public class ThrowFromCenterCastAnimator : CastAnimator
         var buttonFacade = FindSpellButton(context);
 
         ShapeFacade obj = buttonFacade.behaviour.spellObject.GetComponent<ShapeFacade>();
-        Vector3 startPos = obj.transform.position;
         Vector3 targetPos = context.IsPlayerTurn ? context.Enemy.PolygonObject.transform.position 
                                                  : context.Player.PolygonObject.transform.position;
 
@@ -25,7 +24,7 @@ public class ThrowFromCenterCastAnimator : CastAnimator
         float moveTargetDuration = duration * segments[1];
         float moveBackDuration   = duration * segments[2];
 
-        int yCenterPos = context.IsPlayerTurn ? -3 : 3;
+        int yCenterPos    = context.IsPlayerTurn ? -3 : 3;
         int rotationAngle = context.IsPlayerTurn ? 0 : 180;
 
         obj.animator.StopAllAnimations();
@@ -37,8 +36,10 @@ public class ThrowFromCenterCastAnimator : CastAnimator
         OnHit.Invoke();
 
         obj.animator.StartRotationChangeAnimation(obj.transform, moveBackDuration, 0);
-        yield return obj.mover.MoveEaseOut(startPos, moveBackDuration);
+        Vector3 buttonPos = buttonFacade.behaviour.GetButtonWorldPosition();
+        yield return obj.mover.MoveEaseOut(buttonPos, moveBackDuration);
         obj.animator.StartDefaultAnimations();
+        BattleManager.Instance.NextTurn();
         OnCastAnimationEnd.Invoke();
     }
 }

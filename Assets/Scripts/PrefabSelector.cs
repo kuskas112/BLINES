@@ -31,9 +31,7 @@ public class PrefabSelector<T> where T : MonoBehaviour
         foreach (T prefab in prefabs)
         {
             prefabNames.Add(prefab.gameObject.name);
-            Debug.Log("Added prefab " + prefab.gameObject.name);
         }
-        Debug.Log("Added all prefabs from " + prefabPath);
         return prefabs; // возврат загруженных префабов для работы с ними в наследниках
     }
 

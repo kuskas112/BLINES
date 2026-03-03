@@ -96,12 +96,11 @@ public class SpellButtonBehaviour : ButtonBehaviour
         }
     }
 
-    Vector3 GetButtonWorldPosition()
+    public Vector3 GetButtonWorldPosition()
     {
         Vector3 screenPos = buttonRect.position;
         screenPos.z = 0f;
-        Vector3 worldPos = screenPos;
-        return worldPos;
+        return screenPos;
     }
 
     private Color GetColorFromSpellRareness()

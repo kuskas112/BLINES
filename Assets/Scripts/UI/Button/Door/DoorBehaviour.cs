@@ -22,28 +22,10 @@ public class DoorBehaviour : ButtonBehaviour
         spellButtonSpawner = FindAnyObjectByType<SpellButtonSpawner>();
         prefabs = spellBundler.GetAmountOfPrefabs(2);
     }
-
-    public override void OnClickListener()
-    {
-        base.OnClickListener();
-        animator.StartGlowToggleAnimation(
-            animator.maxGlow,
-            animator.duration
-        );
-
-        animator.StartDoorDisappearAnimation(
-            animator.doorDisappearDuration
-        );
-
-        float delay = animator.doorDisappearDuration;
-        StartCoroutine(SpawnCoroutine(delay));
-    }
-
     private SpellButtonFacade GetRandomPrefab()
     {
         return SpellButtonPrefabSelector.Instance.GetRandomPrefab();
     }
-
     private IEnumerator SpawnCoroutine(float delay = 1f)
     {
 
@@ -94,6 +76,13 @@ public class DoorBehaviour : ButtonBehaviour
 
     protected override void PlaySpecificAnimation()
     {
+        animator.StartGlowToggleAnimation(
+            animator.maxGlow,
+            animator.duration
+        );
+
+        float delay = animator.doorDisappearDuration;
+        StartCoroutine(SpawnCoroutine(delay));
     }
 
     protected override void PlayDefaultAnimation()
