@@ -11,8 +11,7 @@ public class BattleContext
         Enemy = enemy;
         EnemyButtonsPlacer = GameObject.Find("EnemyButtons").GetComponent<SpellButtonPlacementManager>();
     }
-    public UnityEvent<int> OnTurnEnded = new();
-    public UnityEvent<int> OnTurnStarted = new();
+    public UnityEvent<int> OnTurnSwitched = new();
 
     public Fighter Player;
     public Fighter Enemy;
@@ -25,9 +24,8 @@ public class BattleContext
 
     public void NextTurn()
     {
-        OnTurnStarted.Invoke(Round);
         Round++;
         IsPlayerTurn = !IsPlayerTurn;
-        OnTurnEnded.Invoke(Round);
+        OnTurnSwitched.Invoke(Round);
     }
 }

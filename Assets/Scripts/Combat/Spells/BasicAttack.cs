@@ -17,7 +17,7 @@ public class BasicAttack : Spell
         Fighter target = context.IsPlayerTurn ? context.Enemy : context.Player;
         Fighter caster = context.IsPlayerTurn ? context.Player : context.Enemy;
         
-        float damage = caster.GetPolygon().Angles;
+        float damage = CalculataDamage(caster);
         foreach (var modifier in Modifiers)
         {
             if(modifier.Target == ModifierTarget.AttackDamage)
@@ -27,5 +27,10 @@ public class BasicAttack : Spell
         }
         CastAnimator.OnHit.AddListener(() => target.TakeDamage(damage));
         CastAnimator.StartCastAnimation(context, 1.5f);
+    }
+
+    protected virtual float CalculataDamage(Fighter caster)
+    {
+        return caster.GetPolygon().Angles;
     }
 }

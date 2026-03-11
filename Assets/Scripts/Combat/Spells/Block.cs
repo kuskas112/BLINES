@@ -5,7 +5,8 @@ public class Block : Spell
     {
         Name = "Block";
         Description = "Blocks next attacking spell";
-        this.Type = SpellType.Active; 
+        this.Type = SpellType.Active;
+        CastAnimator = new OnCasterBounceCastAnimator(this);
     }
     private int roundOfEffectStart = 0;
     private float oldDefence;
@@ -20,16 +21,17 @@ public class Block : Spell
         roundOfEffectStart = context.Round;
         oldDefence = caster.Defence; // Store the original defence value
         caster.Defence = 100f; // Set defence to 100% for the next attack
-        context.OnTurnStarted.AddListener(OnTurnStarted); // Listen for the end of the turn to reset defence
+        context.OnTurnSwitched.AddListener(OnTurnStarted); // Listen for the end of the turn to reset defence
+        CastAnimator.StartCastAnimation(context, 2.5f);
     }
 
     private void OnTurnStarted(int round) 
     {
-        if (round - roundOfEffectStart == 1)
+        if (round - roundOfEffectStart == 2)
         {
             caster.Defence = oldDefence; // Reset defence to original value
             Debug.Log("Defence reset to original value: " + oldDefence);
-            context.OnTurnStarted.RemoveListener(OnTurnStarted); // Stop listening after resetting defence
+            context.OnTurnSwitched.RemoveListener(OnTurnStarted); // Stop listening after resetting defence
         }
     }
 }

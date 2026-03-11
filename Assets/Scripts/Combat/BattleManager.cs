@@ -34,10 +34,14 @@ public class BattleManager : MonoBehaviour
             Enemy
         );
 
+        battleContext.OnTurnSwitched.AddListener(NextTurn);
+
         Enemy.spells.Add(new BasicAttack());
+        Enemy.spells.Add(new FibonacciAttack());
         Enemy.spells.Add(new Block());
 
         Player.spells.Add(new DownsPizza());
+        Player.spells.Add(new SnowballAttack());
     }
 
     public void SpawnFighters(Vector2 playerPos, Vector2 enemyPos)
@@ -71,18 +75,17 @@ public class BattleManager : MonoBehaviour
         return !battleContext.IsPlayerTurn;
     }
 
-    public void NextTurn()
+    public void NextTurn(int round)
     {
         if (IsPlayerTurn()) {
-            Player.polygonFacade.animator.StopPulseAnimation();
-            Enemy.polygonFacade.animator.StartPulseAnimation();
-        }
-        else
-        {
             Enemy.polygonFacade.animator.StopPulseAnimation();
             Player.polygonFacade.animator.StartPulseAnimation();
         }
-        battleContext.NextTurn();
+        else
+        {
+            Player.polygonFacade.animator.StopPulseAnimation();
+            Enemy.polygonFacade.animator.StartPulseAnimation();
+        }
     }
 
     private void AddSpellTo(Fighter fighter, Spell spell)

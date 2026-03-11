@@ -63,22 +63,6 @@ public class SpellButtonBehaviour : ButtonBehaviour
         if(shapeFacade != null)shapeFacade.mover.SetPosition(newPos);
     }
 
-    public void MoveObjectInsideButtonSmooth()
-    {
-        Vector3 newPos = GetButtonWorldPosition();
-        if (shapeFacade != null) shapeFacade.mover.Move(newPos, 1f);
-    }
-
-    public void AddSpellToPlayer()
-    {
-        BattleManager.Instance.AddSpellToPlayer(spell);
-    }
-
-    public void AddSpellToEnemy()
-    {
-        BattleManager.Instance.AddSpellToEnemy(spell);
-    }
-
     public override void OnClickListener()
     {
         base.OnClickListener();

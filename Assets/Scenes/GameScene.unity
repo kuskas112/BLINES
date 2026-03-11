@@ -829,6 +829,7 @@ MonoBehaviour:
   - {x: 1.104167, y: -4.11}
   type: 0
   SlideDuration: 2
+  spawnedInstances: []
 --- !u!1 &1140192415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,27 +1157,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6631770076537988699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.data[0].m_CornerMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6631770076537988699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.data[1].m_CornerMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6631770076537988699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.data[2].m_CornerMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6631770076537988699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.data[3].m_CornerMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6631770076537988699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.data[4].m_CornerMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6631770076537988699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.data[5].m_CornerMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1238,6 +1239,7 @@ MonoBehaviour:
   - {x: 1.104167, y: 4.11}
   type: 1
   SlideDuration: 2
+  spawnedInstances: []
 --- !u!1001 &1590869793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1276,7 +1278,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.2886834
+      value: 1.2887824
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.y
