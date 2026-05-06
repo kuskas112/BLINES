@@ -9,7 +9,7 @@ public class ShapeFacade : MonoBehaviour
     private void Awake()
     {
         shape    = GetComponent<Shape>();
-        animator = GetComponent<ShapeAnimator>();
-        mover    = GetComponent<Mover>();
+        TryGetComponent<ShapeAnimator>(out animator);
+        TryGetComponent<Mover>(out mover);
     }
 }

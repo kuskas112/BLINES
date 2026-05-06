@@ -4,7 +4,7 @@ public class Block : Spell
     public Block()
     {
         Name = "Block";
-        Description = "Blocks next attacking spell";
+        Description = $"{SpellDescriptionBehaviour.ColorString("Blocks", Color.grey)} next attacking spell";
         this.Type = SpellType.Active;
         CastAnimator = new OnCasterBounceCastAnimator(this);
     }

@@ -34,7 +34,7 @@ public class OnCasterBounceCastAnimator : CastAnimator
         yield return obj.mover.MoveEaseOut(buttonPos, moveBackDuration);
         
         obj.animator.StartDefaultAnimations();
-        context.NextTurn();
+        if (NeedToSwitchTurn) context.NextTurn();
         OnCastAnimationEnd.Invoke();
     }
 }

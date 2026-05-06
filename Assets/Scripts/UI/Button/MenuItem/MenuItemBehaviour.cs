@@ -12,7 +12,7 @@ public class MenuItemBehaviour : ButtonBehaviour
         facade = GetComponent<ButtonFacade>();
     }
     
-    protected override void PlaySpecificAnimation()
+    protected override void OnClickAction()
     {
         isClicked = false;
         StartCoroutine(GlowAndMoveButton(new(0f, -7f)));

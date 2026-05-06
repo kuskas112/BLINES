@@ -74,8 +74,11 @@ public class DoorBehaviour : ButtonBehaviour
         Destroy(gameObject);
     }
 
-    protected override void PlaySpecificAnimation()
+    protected override void OnClickAction()
     {
+        base.OnClickAction();
+        animator.StartOnClickAnimation();
+
         animator.StartGlowToggleAnimation(
             animator.maxGlow,
             animator.duration
@@ -83,11 +86,5 @@ public class DoorBehaviour : ButtonBehaviour
 
         float delay = animator.doorDisappearDuration;
         StartCoroutine(SpawnCoroutine(delay));
-    }
-
-    protected override void PlayDefaultAnimation()
-    {
-        base.PlayDefaultAnimation();
-        animator.StartOnClickAnimation();
     }
 }

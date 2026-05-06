@@ -5,7 +5,7 @@ public class BasicAttack : Spell
     public BasicAttack()
     {
         Name              = "Basic Attack";
-        Description       = "Deals damage to the target based on angle count";
+        Description       = $"Deals {SpellDescriptionBehaviour.ColorString("Damage", Color.red)} to the target based on angle count";
         this.Type         = SpellType.Active; 
         this.CastAnimator = new ThrowFromCenterCastAnimator(this);
     }

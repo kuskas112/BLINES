@@ -95,6 +95,18 @@ public class Fighter : MonoBehaviour
         #endif
     }
 
+    public List<Spell> GetAllPassiveSpells()
+    {
+        List<Spell> passiveSpells = new();
+        foreach(var spell in spells)
+        {
+            if(spell.Type == SpellType.Passive)
+            {
+                passiveSpells.Add(spell);
+            }
+        }
 
+        return passiveSpells;
+    }
 
 }

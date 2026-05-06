@@ -21,6 +21,9 @@ public class SpellButtonBehaviour : ButtonBehaviour
         if (mainCamera == null) mainCamera = CameraManager.Camera;
         if (spellObject != null) SetShapeFacade();
         if (spell == null) SetSpell(GetDefaultSpell());
+
+        this.OnLongPress.AddListener(ShowSpellDescription);
+        this.OnLongPressEnded.AddListener(HideSpellDescription);
     }
 
     public virtual Spell GetDefaultSpell()
@@ -28,15 +31,23 @@ public class SpellButtonBehaviour : ButtonBehaviour
         return null;
     }
 
-    protected override void PlayDefaultAnimation()
+    protected override void OnClickAction()
     {
-        base.PlayDefaultAnimation();
+        base.OnClickAction();
         animator.StartOnClickAnimation();
-    }
 
-    protected override void PlaySpecificAnimation()
-    {
-        
+        // А как ты собрался кастовать если нету объекта спелла
+        if (shapeFacade != null && Clickable && Castable)
+        {
+            if (BattleManager.Instance.IsPlayerTurn())
+            {
+                BattleManager.Instance.CastPlayerSpell(spell);
+            }
+            else
+            {
+                BattleManager.Instance.CastEnemySpell(spell);
+            }
+        }
     }
 
     public virtual Spell GetSpell() 
@@ -63,21 +74,18 @@ public class SpellButtonBehaviour : ButtonBehaviour
         if(shapeFacade != null)shapeFacade.mover.SetPosition(newPos);
     }
 
-    public override void OnClickListener()
+    private void ShowSpellDescription()
     {
-        base.OnClickListener();
-        // А как ты собрался кастовать если нету объекта спелла
-        if (shapeFacade != null && Clickable && Castable)
-        {
-            if (BattleManager.Instance.IsPlayerTurn())
-            {
-                BattleManager.Instance.CastPlayerSpell(spell);
-            }
-            else
-            {
-                BattleManager.Instance.CastEnemySpell(spell);
-            }
-        }
+        var spellDesc = FindFirstObjectByType<SpellDescriptionBehaviour>();
+        string spellName = SpellDescriptionBehaviour.ColorString(spell.Name, GetColorFromSpellRareness());
+        string desc = $"{spellName}\n{spell.Description}";
+        spellDesc.ShowDescription(desc);
+    }
+
+    private void HideSpellDescription()
+    {
+        var spellDesc = FindFirstObjectByType<SpellDescriptionBehaviour>();
+        spellDesc.HideDescription();
     }
 
     public Vector3 GetButtonWorldPosition()

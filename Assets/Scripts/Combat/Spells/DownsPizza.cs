@@ -4,13 +4,12 @@ public class DownsPizza : Spell
     public DownsPizza()
     {
         Name = "Down`s Pizza";
-        Description = "Healing few HP";
+        Description = $"Healing {SpellDescriptionBehaviour.ColorString($"Angles multiplied by {HealMultiplier} HP", Color.green)}";
         this.Type = SpellType.Consumable; 
         Rareness = SpellRareness.Epic;
         CastAnimator = new OnCasterBounceCastAnimator(this);
     }
     public float HealMultiplier = 2.5f;
-
     public override void Cast(BattleContext context)
     {
         base.Cast(context);

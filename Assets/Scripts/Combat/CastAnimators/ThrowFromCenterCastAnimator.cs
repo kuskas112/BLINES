@@ -39,7 +39,7 @@ public class ThrowFromCenterCastAnimator : CastAnimator
         Vector3 buttonPos = buttonFacade.behaviour.GetButtonWorldPosition();
         yield return obj.mover.MoveEaseOut(buttonPos, moveBackDuration);
         obj.animator.StartDefaultAnimations();
-        context.NextTurn();
+        if (NeedToSwitchTurn) context.NextTurn();
         OnCastAnimationEnd.Invoke();
     }
 }

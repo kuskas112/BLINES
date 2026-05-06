@@ -25,8 +25,6 @@ public class BattleManager : MonoBehaviour
     public Fighter Player;
     public Fighter Enemy;
 
-    private Queue<Coroutine> activeCastAnimations = new();
-
     void Awake()
     {
         battleContext = new BattleContext(
@@ -40,8 +38,9 @@ public class BattleManager : MonoBehaviour
         Enemy.spells.Add(new FibonacciAttack());
         Enemy.spells.Add(new Block());
 
-        Player.spells.Add(new DownsPizza());
         Player.spells.Add(new SnowballAttack());
+        Player.spells.Add(new Regenerate());
+        Player.spells.Add(new Regenerate());
     }
 
     public void SpawnFighters(Vector2 playerPos, Vector2 enemyPos)
@@ -80,11 +79,21 @@ public class BattleManager : MonoBehaviour
         if (IsPlayerTurn()) {
             Enemy.polygonFacade.animator.StopPulseAnimation();
             Player.polygonFacade.animator.StartPulseAnimation();
+            CastAllPassiveSpells(Player);
         }
         else
         {
             Player.polygonFacade.animator.StopPulseAnimation();
             Enemy.polygonFacade.animator.StartPulseAnimation();
+            CastAllPassiveSpells(Enemy);
+        }
+    }
+
+    public void CastAllPassiveSpells(Fighter fighter)
+    {
+        foreach (var spell in fighter.GetAllPassiveSpells())
+        {
+            Cast(spell);
         }
     }
 
