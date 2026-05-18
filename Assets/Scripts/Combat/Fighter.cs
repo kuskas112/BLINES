@@ -17,6 +17,7 @@ public class Fighter : MonoBehaviour
     public Fighter2fEvent onDefenceChanged = new();
     public List<Spell> spells = new();
     public PolygonFacade polygonFacade;
+    public FighterType type = FighterType.Enemy;
     private float _health = 100f;
     public float Health
     {

@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public class DoorSpawner : ButtonSpawner<DoorFacade>
+public class DoorSpawner : UIElementSpawner<DoorFacade>
 {
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpellButtonSpawner : ButtonSpawner<SpellButtonFacade>
+public class SpellButtonSpawner : UIElementSpawner<SpellButtonFacade>
 {
     public override SpellButtonFacade Spawn(Vector3 position, Quaternion rotation)
     {

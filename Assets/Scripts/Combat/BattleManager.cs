@@ -39,7 +39,7 @@ public class BattleManager : MonoBehaviour
         Enemy.spells.Add(new Block());
 
         Player.spells.Add(new SnowballAttack());
-        Player.spells.Add(new DownsPizza());
+        Player.spells.Add(new Regenerate());
         Player.spells.Add(new Regenerate());
     }
 

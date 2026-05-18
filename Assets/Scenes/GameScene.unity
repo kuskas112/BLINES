@@ -488,6 +488,52 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &578747940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 578747941}
+  - component: {fileID: 578747942}
+  m_Layer: 0
+  m_Name: HealthChangeEffectSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &578747941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578747940}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.91185004, y: 0.34278, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2071806307}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &578747942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578747940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99ba487f2cd0bba4f9922df18d13a53f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthChangeEffectSpawner
+  prefab: {fileID: 4815702195269990346, guid: 05ec0f595357a5049bc1026045c2b224, type: 3}
+  spawnParent: {fileID: 671899060}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,6 +899,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fighter
   polygonFacade: {fileID: 0}
+  type: 1
   PolygonObject: {fileID: 816596918}
 --- !u!1 &1071814782
 GameObject:
@@ -1280,6 +1327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Fighter
   polygonFacade: {fileID: 0}
+  type: 0
   PolygonObject: {fileID: 1247444473}
 --- !u!1001 &1519242186
 PrefabInstance:
@@ -1476,7 +1524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.x
-      value: 1.2887824
+      value: 1.2886834
       objectReference: {fileID: 0}
     - target: {fileID: 2290238774974978699, guid: 9f25775a13c84ff45b5154287f6e9b00, type: 3}
       propertyPath: m_LocalAABB.m_Extent.y
@@ -1897,6 +1945,7 @@ Transform:
   - {fileID: 2103090641}
   - {fileID: 1835413586}
   - {fileID: 446129731}
+  - {fileID: 578747941}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103090639

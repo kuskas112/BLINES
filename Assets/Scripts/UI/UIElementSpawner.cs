@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class ButtonSpawner<T> : BasicSpawner<T> where T : ButtonFacade
+public abstract class UIElementSpawner<T> : BasicSpawner<T> where T : MonoBehaviour
 {
     public override T Spawn(Vector3 position, Quaternion rotation)
     {
