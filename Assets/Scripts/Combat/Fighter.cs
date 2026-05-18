@@ -10,10 +10,11 @@ public enum FighterType
     Enemy
 };
 public class Fighter1fEvent : UnityEvent<float> {}
+public class Fighter2fEvent : UnityEvent<float, float> {}
 public class Fighter : MonoBehaviour
 {
-    public Fighter1fEvent onHealthChanged = new();
-    public Fighter1fEvent onDefenceChanged = new();
+    public Fighter2fEvent onHealthChanged = new();
+    public Fighter2fEvent onDefenceChanged = new();
     public List<Spell> spells = new();
     public PolygonFacade polygonFacade;
     private float _health = 100f;
@@ -22,8 +23,9 @@ public class Fighter : MonoBehaviour
         get { return _health; }
         set
         {
+            float diff = value - _health;
+            onHealthChanged.Invoke(value, diff);
             _health = value;
-            onHealthChanged.Invoke(_health);
         }
     }
     
@@ -33,8 +35,9 @@ public class Fighter : MonoBehaviour
         get { return _defence; }
         set 
         {
+            float diff = value - _defence;
+            onDefenceChanged.Invoke(_defence, diff);
             _defence = Mathf.Clamp(value, 0f, 100f);
-            onDefenceChanged.Invoke(_defence);
         }
     }
 
