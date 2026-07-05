@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
             facade.behaviour.button.onClick.AddListener(() =>
             {
                 if (facade.behaviour.longPressTriggered) return;
+                battleManager.StartBattle();
+
                 MovePlayerToFightPos();
                 MoveEnemyToFightPos();
                 battleManager.Player.spells.Add(

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
@@ -24,23 +25,27 @@ public class BattleManager : MonoBehaviour
     public BattleContext battleContext;
     public Fighter Player;
     public Fighter Enemy;
+    public UnityEvent OnBattleStart;
 
     void Awake()
+    {
+    }
+
+    public void StartBattle()
     {
         battleContext = new BattleContext(
             Player,
             Enemy
         );
 
+        OnBattleStart.Invoke();
+
         battleContext.OnTurnSwitched.AddListener(NextTurn);
 
-        Enemy.spells.Add(new BasicAttack());
+        Enemy.spells.Add(new DownsPizza());
         Enemy.spells.Add(new FibonacciAttack());
         Enemy.spells.Add(new Block());
-
-        Player.spells.Add(new SnowballAttack());
-        Player.spells.Add(new Regenerate());
-        Player.spells.Add(new Regenerate());
+        Enemy.spells.Add(new Regenerate());
     }
 
     public void SpawnFighters(Vector2 playerPos, Vector2 enemyPos)
@@ -86,6 +91,18 @@ public class BattleManager : MonoBehaviour
             Player.polygonFacade.animator.StopPulseAnimation();
             Enemy.polygonFacade.animator.StartPulseAnimation();
             CastAllPassiveSpells(Enemy);
+
+            CastRandomEnemySpell();
+        }
+    }
+
+    private void CastRandomEnemySpell()
+    {
+        var activeSpells = Enemy.spells.FindAll(spell => spell.Type != SpellType.Passive);
+        if (activeSpells.Count > 0)
+        {
+            int randomIndex = Random.Range(0, activeSpells.Count);
+            Cast(Enemy.spells[randomIndex]);
         }
     }
 

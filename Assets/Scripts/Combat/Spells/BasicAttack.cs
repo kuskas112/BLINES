@@ -33,4 +33,9 @@ public class BasicAttack : Spell
     {
         return caster.GetPolygon().Angles;
     }
+
+    public override float EvaluateAction(BattleContext context)
+    {
+        return CalculataDamage(context.Enemy);
+    }
 }

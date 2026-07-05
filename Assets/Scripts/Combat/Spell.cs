@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public enum SpellType {Active, Passive, Consumable}
 public enum SpellRareness {Default, Rare, Epic, Legendary}
-public class Spell
+public class Spell : IActionScorer
 {
     public string Name;
     public string Description;
@@ -25,5 +25,10 @@ public class Spell
         #if UNITY_EDITOR
         Debug.Log("Casted " + Name);
         #endif
+    }
+
+    public virtual float EvaluateAction(BattleContext context) 
+    {
+        return 0f;
     }
 }
